@@ -1,0 +1,14 @@
+prefix=/usr
+exec_prefix=${prefix}
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Name: libavfilter
+Description: Libav video filtering library
+Version: 4.2.0
+Requires: 
+Requires.private: libswscale >= 2.1.2, libavresample >= 1.1.0, libavformat >= 55.12.0, libavcodec >= 55.34.1, libavutil = 53.3.0
+Conflicts:
+Libs: -L${libdir} -lavfilter 
+Libs.private: -lavicap32 -lws2_32 -lx264 -lvpx -lvpx -lvorbisenc -lvorbis -logg -lvo-aacenc -L/usr/i686-w64-mingw32/usr/lib -lrtmp -lz -lpolarssl -lws2_32 -lwinmm -L/usr/i686-w64-mingw32/usr/lib -lopus -lmp3lame -lm -lz -lpsapi -ladvapi32 -lshell32
+Cflags: -I${includedir}

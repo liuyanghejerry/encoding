@@ -1,0 +1,3516 @@
+<!DOCTYPE html>
+<html>
+<!-- Created on May, 10 2014 by texi2html 1.78 -->
+<!--
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+
+-->
+<head>
+<title>Libav documentation : avprobe </title>
+
+<meta name="description" content="avprobe Documentation: ">
+<meta name="keywords" content="Libav documentation : avprobe ">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.78">
+
+<style type="text/css">
+<!--
+.container {
+  margin-right: auto;
+  margin-left: auto;
+  width: 1070px;
+}
+body {
+  font-size: 14px;
+  line-height: 20px;
+  color: #333333;
+  background-color: #ffffff;
+}
+a {
+  color: #0088cc;
+  text-decoration: none;
+}
+a:hover {
+  color: #005580;
+  text-decoration: underline;
+}
+p {
+  margin: 0 0 10px;
+}
+h2,
+h3,
+h4 {
+  margin: 10px 0;
+  font-family: inherit;
+  font-weight: bold;
+  line-height: 1;
+  border-color: #D6E9C6;
+  color: #468847;
+  border-style: solid;
+  border-width: 0 0 1px;
+  padding-left: 0.5em;
+}
+
+h1 a,
+h2 a,
+h3 a,
+h4 a {
+  color: inherit;
+}
+h1 {
+  font-size: 30px;
+  line-height: 40px;
+}
+h2 {
+  font-size: 20px;
+  line-height: 40px;
+}
+h3 {
+  font-size: 18px;
+  line-height: 40px;
+}
+code,
+pre {
+  padding: 0 3px 2px;
+  font-family: monospace;
+  font-size: 12px;
+  color: #333333;
+  border-radius: 3px;
+}
+pre {
+  display: block;
+  padding: 9.5px;
+  margin: 0 0 10px;
+  font-size: 13px;
+  line-height: 20px;
+  word-break: break-all;
+  word-wrap: break-word;
+  white-space: pre;
+  white-space: pre-wrap;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+code {
+  padding: 2px 4px;
+  color: #d14;
+  background-color: #f7f7f9;
+  border: 1px solid #e1e1e8;
+}
+pre code {
+  padding: 0;
+  color: inherit;
+  background-color: transparent;
+  border: 0;
+}
+.alert {
+  padding: 8px 35px 8px 14px;
+  margin-bottom: 20px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  background-color: #fcf8e3;
+  border: 1px solid #fbeed5;
+  border-radius: 4px;
+  color: #c09853;
+}
+
+.alert-danger,
+.alert-error {
+  background-color: #f2dede;
+  border-color: #eed3d7;
+  color: #b94a48;
+}
+.alert-info {
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  color: #3a87ad;
+}
+
+ul.toc {
+  list-style-type: none;
+}
+-->
+</style>
+
+<link rel="icon" href="favicon.png" type="image/png" />
+</head>
+<body>
+<div class="container">
+
+<h1 class="settitle">avprobe Documentation
+</h1>
+
+<a name="SEC_Contents"></a>
+<h1>Table of Contents</h1>
+<div class="contents">
+
+<ul class="toc">
+  <li><a name="TOC1" href="#SEC1">1. Synopsis</a></li>
+  <li><a name="TOC2" href="#SEC2">2. Description</a></li>
+  <li><a name="TOC3" href="#SEC3">3. Options</a>
+  <ul class="toc">
+    <li><a name="TOC4" href="#SEC4">3.1 Stream specifiers</a></li>
+    <li><a name="TOC5" href="#SEC5">3.2 Generic options</a></li>
+    <li><a name="TOC6" href="#SEC6">3.3 AVOptions</a></li>
+    <li><a name="TOC7" href="#SEC7">3.4 Codec AVOptions</a></li>
+    <li><a name="TOC8" href="#SEC8">3.5 Format AVOptions</a></li>
+    <li><a name="TOC9" href="#SEC9">3.6 Main options</a></li>
+  </ul></li>
+  <li><a name="TOC10" href="#SEC10">4. Demuxers</a>
+  <ul class="toc">
+    <li><a name="TOC11" href="#SEC11">4.1 image2</a></li>
+    <li><a name="TOC12" href="#SEC12">4.2 applehttp</a></li>
+    <li><a name="TOC13" href="#SEC13">4.3 flv</a></li>
+    <li><a name="TOC14" href="#SEC14">4.4 asf</a></li>
+  </ul></li>
+  <li><a name="TOC15" href="#SEC15">5. Muxers</a>
+  <ul class="toc">
+    <li><a name="TOC16" href="#SEC16">5.1 crc</a></li>
+    <li><a name="TOC17" href="#SEC17">5.2 framecrc</a></li>
+    <li><a name="TOC18" href="#SEC18">5.3 hls</a></li>
+    <li><a name="TOC19" href="#SEC19">5.4 image2</a></li>
+    <li><a name="TOC20" href="#SEC20">5.5 matroska</a></li>
+    <li><a name="TOC21" href="#SEC21">5.6 mov, mp4, ismv</a></li>
+    <li><a name="TOC22" href="#SEC22">5.7 mp3</a></li>
+    <li><a name="TOC23" href="#SEC23">5.8 mpegts</a></li>
+    <li><a name="TOC24" href="#SEC24">5.9 null</a></li>
+    <li><a name="TOC25" href="#SEC25">5.10 ogg</a></li>
+    <li><a name="TOC26" href="#SEC26">5.11 segment</a></li>
+  </ul></li>
+  <li><a name="TOC27" href="#SEC27">6. Protocols</a>
+  <ul class="toc">
+    <li><a name="TOC28" href="#SEC28">6.1 concat</a></li>
+    <li><a name="TOC29" href="#SEC29">6.2 file</a></li>
+    <li><a name="TOC30" href="#SEC30">6.3 gopher</a></li>
+    <li><a name="TOC31" href="#SEC31">6.4 hls</a></li>
+    <li><a name="TOC32" href="#SEC32">6.5 http</a></li>
+    <li><a name="TOC33" href="#SEC33">6.6 mmst</a></li>
+    <li><a name="TOC34" href="#SEC34">6.7 mmsh</a></li>
+    <li><a name="TOC35" href="#SEC35">6.8 md5</a></li>
+    <li><a name="TOC36" href="#SEC36">6.9 pipe</a></li>
+    <li><a name="TOC37" href="#SEC37">6.10 rtmp</a></li>
+    <li><a name="TOC38" href="#SEC38">6.11 rtmpe</a></li>
+    <li><a name="TOC39" href="#SEC39">6.12 rtmps</a></li>
+    <li><a name="TOC40" href="#SEC40">6.13 rtmpt</a></li>
+    <li><a name="TOC41" href="#SEC41">6.14 rtmpte</a></li>
+    <li><a name="TOC42" href="#SEC42">6.15 rtmpts</a></li>
+    <li><a name="TOC43" href="#SEC43">6.16 librtmp rtmp, rtmpe, rtmps, rtmpt, rtmpte</a></li>
+    <li><a name="TOC44" href="#SEC44">6.17 rtp</a></li>
+    <li><a name="TOC45" href="#SEC45">6.18 rtsp</a></li>
+    <li><a name="TOC46" href="#SEC46">6.19 sap</a>
+    <ul class="toc">
+      <li><a name="TOC47" href="#SEC47">6.19.1 Muxer</a></li>
+      <li><a name="TOC48" href="#SEC48">6.19.2 Demuxer</a></li>
+    </ul></li>
+    <li><a name="TOC49" href="#SEC49">6.20 tcp</a></li>
+    <li><a name="TOC50" href="#SEC50">6.21 tls</a></li>
+    <li><a name="TOC51" href="#SEC51">6.22 udp</a></li>
+    <li><a name="TOC52" href="#SEC52">6.23 unix</a></li>
+  </ul></li>
+  <li><a name="TOC53" href="#SEC53">7. Input Devices</a>
+  <ul class="toc">
+    <li><a name="TOC54" href="#SEC54">7.1 alsa</a></li>
+    <li><a name="TOC55" href="#SEC55">7.2 bktr</a></li>
+    <li><a name="TOC56" href="#SEC56">7.3 dv1394</a></li>
+    <li><a name="TOC57" href="#SEC57">7.4 fbdev</a></li>
+    <li><a name="TOC58" href="#SEC58">7.5 jack</a></li>
+    <li><a name="TOC59" href="#SEC59">7.6 libdc1394</a></li>
+    <li><a name="TOC60" href="#SEC60">7.7 oss</a></li>
+    <li><a name="TOC61" href="#SEC61">7.8 pulse</a>
+    <ul class="toc">
+      <li><a name="TOC62" href="#SEC62">7.8.1 <var>server</var> AVOption</a></li>
+      <li><a name="TOC63" href="#SEC63">7.8.2 <var>name</var> AVOption</a></li>
+      <li><a name="TOC64" href="#SEC64">7.8.3 <var>stream_name</var> AVOption</a></li>
+      <li><a name="TOC65" href="#SEC65">7.8.4 <var>sample_rate</var> AVOption</a></li>
+      <li><a name="TOC66" href="#SEC66">7.8.5 <var>channels</var> AVOption</a></li>
+      <li><a name="TOC67" href="#SEC67">7.8.6 <var>frame_size</var> AVOption</a></li>
+      <li><a name="TOC68" href="#SEC68">7.8.7 <var>fragment_size</var> AVOption</a></li>
+    </ul></li>
+    <li><a name="TOC69" href="#SEC69">7.9 sndio</a></li>
+    <li><a name="TOC70" href="#SEC70">7.10 video4linux2</a></li>
+    <li><a name="TOC71" href="#SEC71">7.11 vfwcap</a></li>
+    <li><a name="TOC72" href="#SEC72">7.12 x11grab</a>
+    <ul class="toc">
+      <li><a name="TOC73" href="#SEC73">7.12.1 <var>follow_mouse</var> AVOption</a></li>
+      <li><a name="TOC74" href="#SEC74">7.12.2 <var>show_region</var> AVOption</a></li>
+    </ul>
+</li>
+  </ul>
+</li>
+</ul>
+</div>
+
+
+<a name="SEC1"></a>
+<h1 class="chapter"> <a href="#TOC1">1. Synopsis</a> </h1>
+
+<p>The generic syntax is:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">avprobe [options] [&lsquo;<tt>input_file</tt>&rsquo;]
+</pre></td></tr></table>
+
+<a name="SEC2"></a>
+<h1 class="chapter"> <a href="#TOC2">2. Description</a> </h1>
+
+<p>avprobe gathers information from multimedia streams and prints it in
+human- and machine-readable fashion.
+</p>
+<p>For example it can be used to check the format of the container used
+by a multimedia stream and the format and type of each media stream
+contained in it.
+</p>
+<p>If a filename is specified in input, avprobe will try to open and
+probe the file content. If the file cannot be opened or recognized as
+a multimedia file, a positive exit code is returned.
+</p>
+<p>avprobe may be employed both as a standalone application or in
+combination with a textual filter, which may perform more
+sophisticated processing, e.g. statistical processing or plotting.
+</p>
+<p>Options are used to list some of the formats supported by avprobe or
+for specifying which information to display, and for setting how
+avprobe will show it.
+</p>
+<p>avprobe output is designed to be easily parsable by any INI or JSON
+parsers.
+</p>
+
+<a name="SEC3"></a>
+<h1 class="chapter"> <a href="#TOC3">3. Options</a> </h1>
+
+<p>All the numerical options, if not specified otherwise, accept in input
+a string representing a number, which may contain one of the
+SI unit prefixes, for example 'K', 'M', 'G'.
+If 'i' is appended after the prefix, binary prefixes are used,
+which are based on powers of 1024 instead of powers of 1000.
+The 'B' postfix multiplies the value by 8, and can be
+appended after a unit prefix or used alone. This allows using for
+example 'KB', 'MiB', 'G' and 'B' as number postfix.
+</p>
+<p>Options which do not take arguments are boolean options, and set the
+corresponding value to true. They can be set to false by prefixing
+with &quot;no&quot; the option name, for example using &quot;-nofoo&quot; in the
+command line will set to false the boolean option with name &quot;foo&quot;.
+</p>
+<p><a name="Stream-specifiers"></a>
+</p><a name="SEC4"></a>
+<h2 class="section"> <a href="#TOC4">3.1 Stream specifiers</a> </h2>
+<p>Some options are applied per-stream, e.g. bitrate or codec. Stream specifiers
+are used to precisely specify which stream(s) does a given option belong to.
+</p>
+<p>A stream specifier is a string generally appended to the option name and
+separated from it by a colon. E.g. <code>-codec:a:1 ac3</code> option contains
+<code>a:1</code> stream specifer, which matches the second audio stream. Therefore it
+would select the ac3 codec for the second audio stream.
+</p>
+<p>A stream specifier can match several stream, the option is then applied to all
+of them. E.g. the stream specifier in <code>-b:a 128k</code> matches all audio
+streams.
+</p>
+<p>An empty stream specifier matches all streams, for example <code>-codec copy</code>
+or <code>-codec: copy</code> would copy all the streams without reencoding.
+</p>
+<p>Possible forms of stream specifiers are:
+</p><dl compact="compact">
+<dt> &lsquo;<samp><var>stream_index</var></samp>&rsquo;</dt>
+<dd><p>Matches the stream with this index. E.g. <code>-threads:1 4</code> would set the
+thread count for the second stream to 4.
+</p></dd>
+<dt> &lsquo;<samp><var>stream_type</var>[:<var>stream_index</var>]</samp>&rsquo;</dt>
+<dd><p><var>stream_type</var> is one of: 'v' for video, 'a' for audio, 's' for subtitle,
+'d' for data and 't' for attachments. If <var>stream_index</var> is given, then
+matches stream number <var>stream_index</var> of this type. Otherwise matches all
+streams of this type.
+</p></dd>
+<dt> &lsquo;<samp>p:<var>program_id</var>[:<var>stream_index</var>]</samp>&rsquo;</dt>
+<dd><p>If <var>stream_index</var> is given, then matches stream number <var>stream_index</var> in
+program with id <var>program_id</var>. Otherwise matches all streams in this program.
+</p></dd>
+</dl>
+<a name="SEC5"></a>
+<h2 class="section"> <a href="#TOC5">3.2 Generic options</a> </h2>
+
+<p>These options are shared amongst the av* tools.
+</p>
+<dl compact="compact">
+<dt> &lsquo;<samp>-L</samp>&rsquo;</dt>
+<dd><p>Show license.
+</p>
+</dd>
+<dt> &lsquo;<samp>-h, -?, -help, --help [<var>arg</var>]</samp>&rsquo;</dt>
+<dd><p>Show help. An optional parameter may be specified to print help about a specific
+item.
+</p>
+<p>Possible values of <var>arg</var> are:
+</p><dl compact="compact">
+<dt> &lsquo;<samp>decoder=<var>decoder_name</var></samp>&rsquo;</dt>
+<dd><p>Print detailed information about the decoder named <var>decoder_name</var>. Use the
+&lsquo;<samp>-decoders</samp>&rsquo; option to get a list of all decoders.
+</p>
+</dd>
+<dt> &lsquo;<samp>encoder=<var>encoder_name</var></samp>&rsquo;</dt>
+<dd><p>Print detailed information about the encoder named <var>encoder_name</var>. Use the
+&lsquo;<samp>-encoders</samp>&rsquo; option to get a list of all encoders.
+</p>
+</dd>
+<dt> &lsquo;<samp>demuxer=<var>demuxer_name</var></samp>&rsquo;</dt>
+<dd><p>Print detailed information about the demuxer named <var>demuxer_name</var>. Use the
+&lsquo;<samp>-formats</samp>&rsquo; option to get a list of all demuxers and muxers.
+</p>
+</dd>
+<dt> &lsquo;<samp>muxer=<var>muxer_name</var></samp>&rsquo;</dt>
+<dd><p>Print detailed information about the muxer named <var>muxer_name</var>. Use the
+&lsquo;<samp>-formats</samp>&rsquo; option to get a list of all muxers and demuxers.
+</p>
+</dd>
+<dt> &lsquo;<samp>filter=<var>filter_name</var></samp>&rsquo;</dt>
+<dd><p>Print detailed information about the filter name <var>filter_name</var>. Use the
+&lsquo;<samp>-filters</samp>&rsquo; option to get a list of all filters.
+</p>
+</dd>
+</dl>
+
+</dd>
+<dt> &lsquo;<samp>-version</samp>&rsquo;</dt>
+<dd><p>Show version.
+</p>
+</dd>
+<dt> &lsquo;<samp>-formats</samp>&rsquo;</dt>
+<dd><p>Show available formats.
+</p>
+<p>The fields preceding the format names have the following meanings:
+</p><dl compact="compact">
+<dt> &lsquo;<samp>D</samp>&rsquo;</dt>
+<dd><p>Decoding available
+</p></dd>
+<dt> &lsquo;<samp>E</samp>&rsquo;</dt>
+<dd><p>Encoding available
+</p></dd>
+</dl>
+
+</dd>
+<dt> &lsquo;<samp>-codecs</samp>&rsquo;</dt>
+<dd><p>Show all codecs known to libavcodec.
+</p>
+<p>Note that the term 'codec' is used throughout this documentation as a shortcut
+for what is more correctly called a media bitstream format.
+</p>
+</dd>
+<dt> &lsquo;<samp>-decoders</samp>&rsquo;</dt>
+<dd><p>Show available decoders.
+</p>
+</dd>
+<dt> &lsquo;<samp>-encoders</samp>&rsquo;</dt>
+<dd><p>Show all available encoders.
+</p>
+</dd>
+<dt> &lsquo;<samp>-bsfs</samp>&rsquo;</dt>
+<dd><p>Show available bitstream filters.
+</p>
+</dd>
+<dt> &lsquo;<samp>-protocols</samp>&rsquo;</dt>
+<dd><p>Show available protocols.
+</p>
+</dd>
+<dt> &lsquo;<samp>-filters</samp>&rsquo;</dt>
+<dd><p>Show available libavfilter filters.
+</p>
+</dd>
+<dt> &lsquo;<samp>-pix_fmts</samp>&rsquo;</dt>
+<dd><p>Show available pixel formats.
+</p>
+</dd>
+<dt> &lsquo;<samp>-sample_fmts</samp>&rsquo;</dt>
+<dd><p>Show available sample formats.
+</p>
+</dd>
+<dt> &lsquo;<samp>-loglevel <var>loglevel</var> | -v <var>loglevel</var></samp>&rsquo;</dt>
+<dd><p>Set the logging level used by the library.
+<var>loglevel</var> is a number or a string containing one of the following values:
+</p><dl compact="compact">
+<dt> &lsquo;<samp>quiet</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>panic</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>fatal</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>error</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>warning</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>info</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>verbose</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>debug</samp>&rsquo;</dt>
+</dl>
+
+<p>By default the program logs to stderr, if coloring is supported by the
+terminal, colors are used to mark errors and warnings. Log coloring
+can be disabled setting the environment variable
+<code>AV_LOG_FORCE_NOCOLOR</code> or <code>NO_COLOR</code>, or can be forced setting
+the environment variable <code>AV_LOG_FORCE_COLOR</code>.
+The use of the environment variable <code>NO_COLOR</code> is deprecated and
+will be dropped in a following Libav version.
+</p>
+</dd>
+<dt> &lsquo;<samp>-cpuflags mask (<em>global</em>)</samp>&rsquo;</dt>
+<dd><p>Set a mask that's applied to autodetected CPU flags. This option is intended
+for testing. Do not use it unless you know what you're doing.
+</p>
+</dd>
+</dl>
+
+<a name="SEC6"></a>
+<h2 class="section"> <a href="#TOC6">3.3 AVOptions</a> </h2>
+
+<p>These options are provided directly by the libavformat, libavdevice and
+libavcodec libraries. To see the list of available AVOptions, use the
+&lsquo;<samp>-help</samp>&rsquo; option. They are separated into two categories:
+</p><dl compact="compact">
+<dt> &lsquo;<samp>generic</samp>&rsquo;</dt>
+<dd><p>These options can be set for any container, codec or device. Generic options
+are listed under AVFormatContext options for containers/devices and under
+AVCodecContext options for codecs.
+</p></dd>
+<dt> &lsquo;<samp>private</samp>&rsquo;</dt>
+<dd><p>These options are specific to the given container, device or codec. Private
+options are listed under their corresponding containers/devices/codecs.
+</p></dd>
+</dl>
+
+<p>For example to write an ID3v2.3 header instead of a default ID3v2.4 to
+an MP3 file, use the &lsquo;<samp>id3v2_version</samp>&rsquo; private option of the MP3
+muxer:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">avconv -i input.flac -id3v2_version 3 out.mp3
+</pre></td></tr></table>
+
+<p>All codec AVOptions are obviously per-stream, so the chapter on stream
+specifiers applies to them
+</p>
+<p>Note &lsquo;<samp>-nooption</samp>&rsquo; syntax cannot be used for boolean AVOptions,
+use &lsquo;<samp>-option 0</samp>&rsquo;/&lsquo;<samp>-option 1</samp>&rsquo;.
+</p>
+<p>Note2 old undocumented way of specifying per-stream AVOptions by prepending
+v/a/s to the options name is now obsolete and will be removed soon.
+</p>
+<a name="SEC7"></a>
+<h2 class="section"> <a href="#TOC7">3.4 Codec AVOptions</a> </h2>
+<dl compact="compact">
+<dt> &lsquo;<samp>-b[:stream_specifier] <var>integer</var> (<em>output,audio,video</em>)</samp>&rsquo;</dt>
+<dd><p>set bitrate (in bits/s)
+</p></dd>
+<dt> &lsquo;<samp>-bt[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>Set video bitrate tolerance (in bits/s). In 1-pass mode, bitrate tolerance specifies how far ratecontrol is willing to deviate from the target average bitrate value. This is not related to minimum/maximum bitrate. Lowering tolerance too much has an adverse effect on quality.
+</p></dd>
+<dt> &lsquo;<samp>-flags[:stream_specifier] <var>flags</var> (<em>input/output,audio,video</em>)</samp>&rsquo;</dt>
+<dd>
+<p>Possible values:
+</p><dl compact="compact">
+<dt> &lsquo;<samp>unaligned</samp>&rsquo;</dt>
+<dd><p>allow decoders to produce unaligned output
+</p></dd>
+<dt> &lsquo;<samp>mv4</samp>&rsquo;</dt>
+<dd><p>use four motion vectors per macroblock (MPEG-4)
+</p></dd>
+<dt> &lsquo;<samp>qpel</samp>&rsquo;</dt>
+<dd><p>use 1/4-pel motion compensation
+</p></dd>
+<dt> &lsquo;<samp>loop</samp>&rsquo;</dt>
+<dd><p>use loop filter
+</p></dd>
+<dt> &lsquo;<samp>qscale</samp>&rsquo;</dt>
+<dd><p>use fixed qscale
+</p></dd>
+<dt> &lsquo;<samp>gmc</samp>&rsquo;</dt>
+<dd><p>use gmc
+</p></dd>
+<dt> &lsquo;<samp>mv0</samp>&rsquo;</dt>
+<dd><p>always try a mb with mv=&lt;0,0&gt;
+</p></dd>
+<dt> &lsquo;<samp>input_preserved</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>pass1</samp>&rsquo;</dt>
+<dd><p>use internal 2-pass ratecontrol in first  pass mode
+</p></dd>
+<dt> &lsquo;<samp>pass2</samp>&rsquo;</dt>
+<dd><p>use internal 2-pass ratecontrol in second pass mode
+</p></dd>
+<dt> &lsquo;<samp>gray</samp>&rsquo;</dt>
+<dd><p>only decode/encode grayscale
+</p></dd>
+<dt> &lsquo;<samp>emu_edge</samp>&rsquo;</dt>
+<dd><p>do not draw edges
+</p></dd>
+<dt> &lsquo;<samp>psnr</samp>&rsquo;</dt>
+<dd><p>error[?] variables will be set during encoding
+</p></dd>
+<dt> &lsquo;<samp>truncated</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>naq</samp>&rsquo;</dt>
+<dd><p>normalize adaptive quantization
+</p></dd>
+<dt> &lsquo;<samp>ildct</samp>&rsquo;</dt>
+<dd><p>use interlaced DCT
+</p></dd>
+<dt> &lsquo;<samp>low_delay</samp>&rsquo;</dt>
+<dd><p>force low delay
+</p></dd>
+<dt> &lsquo;<samp>global_header</samp>&rsquo;</dt>
+<dd><p>place global headers in extradata instead of every keyframe
+</p></dd>
+<dt> &lsquo;<samp>bitexact</samp>&rsquo;</dt>
+<dd><p>use only bitexact functions (except (I)DCT)
+</p></dd>
+<dt> &lsquo;<samp>aic</samp>&rsquo;</dt>
+<dd><p>H.263 advanced intra coding / MPEG-4 AC prediction
+</p></dd>
+<dt> &lsquo;<samp>ilme</samp>&rsquo;</dt>
+<dd><p>interlaced motion estimation
+</p></dd>
+<dt> &lsquo;<samp>cgop</samp>&rsquo;</dt>
+<dd><p>closed GOP
+</p></dd>
+<dt> &lsquo;<samp>output_corrupt</samp>&rsquo;</dt>
+<dd><p>Output even potentially corrupted frames
+</p></dd>
+</dl>
+</dd>
+<dt> &lsquo;<samp>-me_method[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>set motion estimation method
+</p>
+<p>Possible values:
+</p><dl compact="compact">
+<dt> &lsquo;<samp>zero</samp>&rsquo;</dt>
+<dd><p>zero motion estimation (fastest)
+</p></dd>
+<dt> &lsquo;<samp>full</samp>&rsquo;</dt>
+<dd><p>full motion estimation (slowest)
+</p></dd>
+<dt> &lsquo;<samp>epzs</samp>&rsquo;</dt>
+<dd><p>EPZS motion estimation (default)
+</p></dd>
+<dt> &lsquo;<samp>esa</samp>&rsquo;</dt>
+<dd><p>esa motion estimation (alias for full)
+</p></dd>
+<dt> &lsquo;<samp>tesa</samp>&rsquo;</dt>
+<dd><p>tesa motion estimation
+</p></dd>
+<dt> &lsquo;<samp>dia</samp>&rsquo;</dt>
+<dd><p>diamond motion estimation (alias for EPZS)
+</p></dd>
+<dt> &lsquo;<samp>log</samp>&rsquo;</dt>
+<dd><p>log motion estimation
+</p></dd>
+<dt> &lsquo;<samp>phods</samp>&rsquo;</dt>
+<dd><p>phods motion estimation
+</p></dd>
+<dt> &lsquo;<samp>x1</samp>&rsquo;</dt>
+<dd><p>X1 motion estimation
+</p></dd>
+<dt> &lsquo;<samp>hex</samp>&rsquo;</dt>
+<dd><p>hex motion estimation
+</p></dd>
+<dt> &lsquo;<samp>umh</samp>&rsquo;</dt>
+<dd><p>umh motion estimation
+</p></dd>
+</dl>
+</dd>
+<dt> &lsquo;<samp>-g[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>set the group of picture (GOP) size
+</p></dd>
+<dt> &lsquo;<samp>-ar[:stream_specifier] <var>integer</var> (<em>input/output,audio</em>)</samp>&rsquo;</dt>
+<dd><p>set audio sampling rate (in Hz)
+</p></dd>
+<dt> &lsquo;<samp>-ac[:stream_specifier] <var>integer</var> (<em>input/output,audio</em>)</samp>&rsquo;</dt>
+<dd><p>set number of audio channels
+</p></dd>
+<dt> &lsquo;<samp>-cutoff[:stream_specifier] <var>integer</var> (<em>output,audio</em>)</samp>&rsquo;</dt>
+<dd><p>set cutoff bandwidth
+</p></dd>
+<dt> &lsquo;<samp>-frame_size[:stream_specifier] <var>integer</var> (<em>output,audio</em>)</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>-qcomp[:stream_specifier] <var>float</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>video quantizer scale compression (VBR). Constant of ratecontrol equation. Recommended range for default rc_eq: 0.0-1.0
+</p></dd>
+<dt> &lsquo;<samp>-qblur[:stream_specifier] <var>float</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>video quantizer scale blur (VBR)
+</p></dd>
+<dt> &lsquo;<samp>-qmin[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>minimum video quantizer scale (VBR)
+</p></dd>
+<dt> &lsquo;<samp>-qmax[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>maximum video quantizer scale (VBR)
+</p></dd>
+<dt> &lsquo;<samp>-qdiff[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>maximum difference between the quantizer scales (VBR)
+</p></dd>
+<dt> &lsquo;<samp>-bf[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>use 'frames' B frames
+</p></dd>
+<dt> &lsquo;<samp>-b_qfactor[:stream_specifier] <var>float</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>QP factor between P- and B-frames
+</p></dd>
+<dt> &lsquo;<samp>-rc_strategy[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>ratecontrol method
+</p></dd>
+<dt> &lsquo;<samp>-b_strategy[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>strategy to choose between I/P/B-frames
+</p></dd>
+<dt> &lsquo;<samp>-ps[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>RTP payload size in bytes
+</p></dd>
+<dt> &lsquo;<samp>-bug[:stream_specifier] <var>flags</var> (<em>input,video</em>)</samp>&rsquo;</dt>
+<dd><p>work around not autodetected encoder bugs
+</p>
+<p>Possible values:
+</p><dl compact="compact">
+<dt> &lsquo;<samp>autodetect</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>old_msmpeg4</samp>&rsquo;</dt>
+<dd><p>some old lavc-generated MSMPEG4v3 files (no autodetection)
+</p></dd>
+<dt> &lsquo;<samp>xvid_ilace</samp>&rsquo;</dt>
+<dd><p>Xvid interlacing bug (autodetected if FOURCC == XVIX)
+</p></dd>
+<dt> &lsquo;<samp>ump4</samp>&rsquo;</dt>
+<dd><p>(autodetected if FOURCC == UMP4)
+</p></dd>
+<dt> &lsquo;<samp>no_padding</samp>&rsquo;</dt>
+<dd><p>padding bug (autodetected)
+</p></dd>
+<dt> &lsquo;<samp>amv</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>ac_vlc</samp>&rsquo;</dt>
+<dd><p>illegal VLC bug (autodetected per FOURCC)
+</p></dd>
+<dt> &lsquo;<samp>qpel_chroma</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>std_qpel</samp>&rsquo;</dt>
+<dd><p>old standard qpel (autodetected per FOURCC/version)
+</p></dd>
+<dt> &lsquo;<samp>qpel_chroma2</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>direct_blocksize</samp>&rsquo;</dt>
+<dd><p>direct-qpel-blocksize bug (autodetected per FOURCC/version)
+</p></dd>
+<dt> &lsquo;<samp>edge</samp>&rsquo;</dt>
+<dd><p>edge padding bug (autodetected per FOURCC/version)
+</p></dd>
+<dt> &lsquo;<samp>hpel_chroma</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>dc_clip</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>ms</samp>&rsquo;</dt>
+<dd><p>work around various bugs in Microsoft's broken decoders
+</p></dd>
+<dt> &lsquo;<samp>trunc</samp>&rsquo;</dt>
+<dd><p>truncated frames
+</p></dd>
+</dl>
+</dd>
+<dt> &lsquo;<samp>-strict[:stream_specifier] <var>integer</var> (<em>input/output,audio,video</em>)</samp>&rsquo;</dt>
+<dd><p>how strictly to follow the standards
+</p>
+<p>Possible values:
+</p><dl compact="compact">
+<dt> &lsquo;<samp>very</samp>&rsquo;</dt>
+<dd><p>strictly conform to a older more strict version of the spec or reference software
+</p></dd>
+<dt> &lsquo;<samp>strict</samp>&rsquo;</dt>
+<dd><p>strictly conform to all the things in the spec no matter what the consequences
+</p></dd>
+<dt> &lsquo;<samp>normal</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>unofficial</samp>&rsquo;</dt>
+<dd><p>allow unofficial extensions
+</p></dd>
+<dt> &lsquo;<samp>experimental</samp>&rsquo;</dt>
+<dd><p>allow non-standardized experimental things
+</p></dd>
+</dl>
+</dd>
+<dt> &lsquo;<samp>-b_qoffset[:stream_specifier] <var>float</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>QP offset between P- and B-frames
+</p></dd>
+<dt> &lsquo;<samp>-err_detect[:stream_specifier] <var>flags</var> (<em>input,audio,video</em>)</samp>&rsquo;</dt>
+<dd><p>set error detection flags
+</p>
+<p>Possible values:
+</p><dl compact="compact">
+<dt> &lsquo;<samp>crccheck</samp>&rsquo;</dt>
+<dd><p>verify embedded CRCs
+</p></dd>
+<dt> &lsquo;<samp>bitstream</samp>&rsquo;</dt>
+<dd><p>detect bitstream specification deviations
+</p></dd>
+<dt> &lsquo;<samp>buffer</samp>&rsquo;</dt>
+<dd><p>detect improper bitstream length
+</p></dd>
+<dt> &lsquo;<samp>explode</samp>&rsquo;</dt>
+<dd><p>abort decoding on minor error detection
+</p></dd>
+</dl>
+</dd>
+<dt> &lsquo;<samp>-mpeg_quant[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>use MPEG quantizers instead of H.263
+</p></dd>
+<dt> &lsquo;<samp>-qsquish[:stream_specifier] <var>float</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>how to keep quantizer between qmin and qmax (0 = clip, 1 = use differentiable function)
+</p></dd>
+<dt> &lsquo;<samp>-rc_qmod_amp[:stream_specifier] <var>float</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>experimental quantizer modulation
+</p></dd>
+<dt> &lsquo;<samp>-rc_qmod_freq[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>experimental quantizer modulation
+</p></dd>
+<dt> &lsquo;<samp>-rc_eq[:stream_specifier] <var>string</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>Set rate control equation. When computing the expression, besides the standard functions defined in the section 'Expression Evaluation', the following functions are available: bits2qp(bits), qp2bits(qp). Also the following constants are available: iTex pTex tex mv fCode iCount mcVar var isI isP isB avgQP qComp avgIITex avgPITex avgPPTex avgBPTex avgTex.
+</p></dd>
+<dt> &lsquo;<samp>-maxrate[:stream_specifier] <var>integer</var> (<em>output,audio,video</em>)</samp>&rsquo;</dt>
+<dd><p>Set maximum bitrate tolerance (in bits/s). Requires bufsize to be set.
+</p></dd>
+<dt> &lsquo;<samp>-minrate[:stream_specifier] <var>integer</var> (<em>output,audio,video</em>)</samp>&rsquo;</dt>
+<dd><p>Set minimum bitrate tolerance (in bits/s). Most useful in setting up a CBR encode. It is of little use otherwise.
+</p></dd>
+<dt> &lsquo;<samp>-bufsize[:stream_specifier] <var>integer</var> (<em>output,audio,video</em>)</samp>&rsquo;</dt>
+<dd><p>set ratecontrol buffer size (in bits)
+</p></dd>
+<dt> &lsquo;<samp>-rc_buf_aggressivity[:stream_specifier] <var>float</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>currently useless
+</p></dd>
+<dt> &lsquo;<samp>-i_qfactor[:stream_specifier] <var>float</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>QP factor between P- and I-frames
+</p></dd>
+<dt> &lsquo;<samp>-i_qoffset[:stream_specifier] <var>float</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>QP offset between P- and I-frames
+</p></dd>
+<dt> &lsquo;<samp>-rc_init_cplx[:stream_specifier] <var>float</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>initial complexity for 1-pass encoding
+</p></dd>
+<dt> &lsquo;<samp>-dct[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>DCT algorithm
+</p>
+<p>Possible values:
+</p><dl compact="compact">
+<dt> &lsquo;<samp>auto</samp>&rsquo;</dt>
+<dd><p>autoselect a good one (default)
+</p></dd>
+<dt> &lsquo;<samp>fastint</samp>&rsquo;</dt>
+<dd><p>fast integer
+</p></dd>
+<dt> &lsquo;<samp>int</samp>&rsquo;</dt>
+<dd><p>accurate integer
+</p></dd>
+<dt> &lsquo;<samp>mmx</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>altivec</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>faan</samp>&rsquo;</dt>
+<dd><p>floating point AAN DCT
+</p></dd>
+</dl>
+</dd>
+<dt> &lsquo;<samp>-lumi_mask[:stream_specifier] <var>float</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>compresses bright areas stronger than medium ones
+</p></dd>
+<dt> &lsquo;<samp>-tcplx_mask[:stream_specifier] <var>float</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>temporal complexity masking
+</p></dd>
+<dt> &lsquo;<samp>-scplx_mask[:stream_specifier] <var>float</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>spatial complexity masking
+</p></dd>
+<dt> &lsquo;<samp>-p_mask[:stream_specifier] <var>float</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>inter masking
+</p></dd>
+<dt> &lsquo;<samp>-dark_mask[:stream_specifier] <var>float</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>compresses dark areas stronger than medium ones
+</p></dd>
+<dt> &lsquo;<samp>-idct[:stream_specifier] <var>integer</var> (<em>input/output,video</em>)</samp>&rsquo;</dt>
+<dd><p>select IDCT implementation
+</p>
+<p>Possible values:
+</p><dl compact="compact">
+<dt> &lsquo;<samp>auto</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>int</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>simple</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>simplemmx</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>arm</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>altivec</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>sh4</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>simplearm</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>simplearmv5te</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>simplearmv6</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>simpleneon</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>simplealpha</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>ipp</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>xvidmmx</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>faani</samp>&rsquo;</dt>
+<dd><p>floating point AAN IDCT
+</p></dd>
+</dl>
+</dd>
+<dt> &lsquo;<samp>-ec[:stream_specifier] <var>flags</var> (<em>input,video</em>)</samp>&rsquo;</dt>
+<dd><p>set error concealment strategy
+</p>
+<p>Possible values:
+</p><dl compact="compact">
+<dt> &lsquo;<samp>guess_mvs</samp>&rsquo;</dt>
+<dd><p>iterative motion vector (MV) search (slow)
+</p></dd>
+<dt> &lsquo;<samp>deblock</samp>&rsquo;</dt>
+<dd><p>use strong deblock filter for damaged MBs
+</p></dd>
+</dl>
+</dd>
+<dt> &lsquo;<samp>-pred[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>prediction method
+</p>
+<p>Possible values:
+</p><dl compact="compact">
+<dt> &lsquo;<samp>left</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>plane</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>median</samp>&rsquo;</dt>
+</dl>
+</dd>
+<dt> &lsquo;<samp>-aspect[:stream_specifier] <var>rational number</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>sample aspect ratio
+</p></dd>
+<dt> &lsquo;<samp>-debug[:stream_specifier] <var>flags</var> (<em>input/output,audio,video,subtitles</em>)</samp>&rsquo;</dt>
+<dd><p>print specific debug info
+</p>
+<p>Possible values:
+</p><dl compact="compact">
+<dt> &lsquo;<samp>pict</samp>&rsquo;</dt>
+<dd><p>picture info
+</p></dd>
+<dt> &lsquo;<samp>rc</samp>&rsquo;</dt>
+<dd><p>rate control
+</p></dd>
+<dt> &lsquo;<samp>bitstream</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>mb_type</samp>&rsquo;</dt>
+<dd><p>macroblock (MB) type
+</p></dd>
+<dt> &lsquo;<samp>qp</samp>&rsquo;</dt>
+<dd><p>per-block quantization parameter (QP)
+</p></dd>
+<dt> &lsquo;<samp>mv</samp>&rsquo;</dt>
+<dd><p>motion vector
+</p></dd>
+<dt> &lsquo;<samp>dct_coeff</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>skip</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>startcode</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>pts</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>er</samp>&rsquo;</dt>
+<dd><p>error recognition
+</p></dd>
+<dt> &lsquo;<samp>mmco</samp>&rsquo;</dt>
+<dd><p>memory management control operations (H.264)
+</p></dd>
+<dt> &lsquo;<samp>bugs</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>vis_qp</samp>&rsquo;</dt>
+<dd><p>visualize quantization parameter (QP), lower QP are tinted greener
+</p></dd>
+<dt> &lsquo;<samp>vis_mb_type</samp>&rsquo;</dt>
+<dd><p>visualize block types
+</p></dd>
+<dt> &lsquo;<samp>buffers</samp>&rsquo;</dt>
+<dd><p>picture buffer allocations
+</p></dd>
+<dt> &lsquo;<samp>thread_ops</samp>&rsquo;</dt>
+<dd><p>threading operations
+</p></dd>
+</dl>
+</dd>
+<dt> &lsquo;<samp>-vismv[:stream_specifier] <var>integer</var> (<em>input,video</em>)</samp>&rsquo;</dt>
+<dd><p>visualize motion vectors (MVs)
+</p>
+<p>Possible values:
+</p><dl compact="compact">
+<dt> &lsquo;<samp>pf</samp>&rsquo;</dt>
+<dd><p>forward predicted MVs of P-frames
+</p></dd>
+<dt> &lsquo;<samp>bf</samp>&rsquo;</dt>
+<dd><p>forward predicted MVs of B-frames
+</p></dd>
+<dt> &lsquo;<samp>bb</samp>&rsquo;</dt>
+<dd><p>backward predicted MVs of B-frames
+</p></dd>
+</dl>
+</dd>
+<dt> &lsquo;<samp>-cmp[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>full-pel ME compare function
+</p>
+<p>Possible values:
+</p><dl compact="compact">
+<dt> &lsquo;<samp>sad</samp>&rsquo;</dt>
+<dd><p>sum of absolute differences, fast (default)
+</p></dd>
+<dt> &lsquo;<samp>sse</samp>&rsquo;</dt>
+<dd><p>sum of squared errors
+</p></dd>
+<dt> &lsquo;<samp>satd</samp>&rsquo;</dt>
+<dd><p>sum of absolute Hadamard transformed differences
+</p></dd>
+<dt> &lsquo;<samp>dct</samp>&rsquo;</dt>
+<dd><p>sum of absolute DCT transformed differences
+</p></dd>
+<dt> &lsquo;<samp>psnr</samp>&rsquo;</dt>
+<dd><p>sum of squared quantization errors (avoid, low quality)
+</p></dd>
+<dt> &lsquo;<samp>bit</samp>&rsquo;</dt>
+<dd><p>number of bits needed for the block
+</p></dd>
+<dt> &lsquo;<samp>rd</samp>&rsquo;</dt>
+<dd><p>rate distortion optimal, slow
+</p></dd>
+<dt> &lsquo;<samp>zero</samp>&rsquo;</dt>
+<dd><p>0
+</p></dd>
+<dt> &lsquo;<samp>vsad</samp>&rsquo;</dt>
+<dd><p>sum of absolute vertical differences
+</p></dd>
+<dt> &lsquo;<samp>vsse</samp>&rsquo;</dt>
+<dd><p>sum of squared vertical differences
+</p></dd>
+<dt> &lsquo;<samp>nsse</samp>&rsquo;</dt>
+<dd><p>noise preserving sum of squared differences
+</p></dd>
+<dt> &lsquo;<samp>dctmax</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>chroma</samp>&rsquo;</dt>
+</dl>
+</dd>
+<dt> &lsquo;<samp>-subcmp[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>sub-pel ME compare function
+</p>
+<p>Possible values:
+</p><dl compact="compact">
+<dt> &lsquo;<samp>sad</samp>&rsquo;</dt>
+<dd><p>sum of absolute differences, fast (default)
+</p></dd>
+<dt> &lsquo;<samp>sse</samp>&rsquo;</dt>
+<dd><p>sum of squared errors
+</p></dd>
+<dt> &lsquo;<samp>satd</samp>&rsquo;</dt>
+<dd><p>sum of absolute Hadamard transformed differences
+</p></dd>
+<dt> &lsquo;<samp>dct</samp>&rsquo;</dt>
+<dd><p>sum of absolute DCT transformed differences
+</p></dd>
+<dt> &lsquo;<samp>psnr</samp>&rsquo;</dt>
+<dd><p>sum of squared quantization errors (avoid, low quality)
+</p></dd>
+<dt> &lsquo;<samp>bit</samp>&rsquo;</dt>
+<dd><p>number of bits needed for the block
+</p></dd>
+<dt> &lsquo;<samp>rd</samp>&rsquo;</dt>
+<dd><p>rate distortion optimal, slow
+</p></dd>
+<dt> &lsquo;<samp>zero</samp>&rsquo;</dt>
+<dd><p>0
+</p></dd>
+<dt> &lsquo;<samp>vsad</samp>&rsquo;</dt>
+<dd><p>sum of absolute vertical differences
+</p></dd>
+<dt> &lsquo;<samp>vsse</samp>&rsquo;</dt>
+<dd><p>sum of squared vertical differences
+</p></dd>
+<dt> &lsquo;<samp>nsse</samp>&rsquo;</dt>
+<dd><p>noise preserving sum of squared differences
+</p></dd>
+<dt> &lsquo;<samp>dctmax</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>chroma</samp>&rsquo;</dt>
+</dl>
+</dd>
+<dt> &lsquo;<samp>-mbcmp[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>macroblock compare function
+</p>
+<p>Possible values:
+</p><dl compact="compact">
+<dt> &lsquo;<samp>sad</samp>&rsquo;</dt>
+<dd><p>sum of absolute differences, fast (default)
+</p></dd>
+<dt> &lsquo;<samp>sse</samp>&rsquo;</dt>
+<dd><p>sum of squared errors
+</p></dd>
+<dt> &lsquo;<samp>satd</samp>&rsquo;</dt>
+<dd><p>sum of absolute Hadamard transformed differences
+</p></dd>
+<dt> &lsquo;<samp>dct</samp>&rsquo;</dt>
+<dd><p>sum of absolute DCT transformed differences
+</p></dd>
+<dt> &lsquo;<samp>psnr</samp>&rsquo;</dt>
+<dd><p>sum of squared quantization errors (avoid, low quality)
+</p></dd>
+<dt> &lsquo;<samp>bit</samp>&rsquo;</dt>
+<dd><p>number of bits needed for the block
+</p></dd>
+<dt> &lsquo;<samp>rd</samp>&rsquo;</dt>
+<dd><p>rate distortion optimal, slow
+</p></dd>
+<dt> &lsquo;<samp>zero</samp>&rsquo;</dt>
+<dd><p>0
+</p></dd>
+<dt> &lsquo;<samp>vsad</samp>&rsquo;</dt>
+<dd><p>sum of absolute vertical differences
+</p></dd>
+<dt> &lsquo;<samp>vsse</samp>&rsquo;</dt>
+<dd><p>sum of squared vertical differences
+</p></dd>
+<dt> &lsquo;<samp>nsse</samp>&rsquo;</dt>
+<dd><p>noise preserving sum of squared differences
+</p></dd>
+<dt> &lsquo;<samp>dctmax</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>chroma</samp>&rsquo;</dt>
+</dl>
+</dd>
+<dt> &lsquo;<samp>-ildctcmp[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>interlaced DCT compare function
+</p>
+<p>Possible values:
+</p><dl compact="compact">
+<dt> &lsquo;<samp>sad</samp>&rsquo;</dt>
+<dd><p>sum of absolute differences, fast (default)
+</p></dd>
+<dt> &lsquo;<samp>sse</samp>&rsquo;</dt>
+<dd><p>sum of squared errors
+</p></dd>
+<dt> &lsquo;<samp>satd</samp>&rsquo;</dt>
+<dd><p>sum of absolute Hadamard transformed differences
+</p></dd>
+<dt> &lsquo;<samp>dct</samp>&rsquo;</dt>
+<dd><p>sum of absolute DCT transformed differences
+</p></dd>
+<dt> &lsquo;<samp>psnr</samp>&rsquo;</dt>
+<dd><p>sum of squared quantization errors (avoid, low quality)
+</p></dd>
+<dt> &lsquo;<samp>bit</samp>&rsquo;</dt>
+<dd><p>number of bits needed for the block
+</p></dd>
+<dt> &lsquo;<samp>rd</samp>&rsquo;</dt>
+<dd><p>rate distortion optimal, slow
+</p></dd>
+<dt> &lsquo;<samp>zero</samp>&rsquo;</dt>
+<dd><p>0
+</p></dd>
+<dt> &lsquo;<samp>vsad</samp>&rsquo;</dt>
+<dd><p>sum of absolute vertical differences
+</p></dd>
+<dt> &lsquo;<samp>vsse</samp>&rsquo;</dt>
+<dd><p>sum of squared vertical differences
+</p></dd>
+<dt> &lsquo;<samp>nsse</samp>&rsquo;</dt>
+<dd><p>noise preserving sum of squared differences
+</p></dd>
+<dt> &lsquo;<samp>dctmax</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>chroma</samp>&rsquo;</dt>
+</dl>
+</dd>
+<dt> &lsquo;<samp>-dia_size[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>diamond type &amp; size for motion estimation
+</p></dd>
+<dt> &lsquo;<samp>-last_pred[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>amount of motion predictors from the previous frame
+</p></dd>
+<dt> &lsquo;<samp>-preme[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>pre motion estimation
+</p></dd>
+<dt> &lsquo;<samp>-precmp[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>pre motion estimation compare function
+</p>
+<p>Possible values:
+</p><dl compact="compact">
+<dt> &lsquo;<samp>sad</samp>&rsquo;</dt>
+<dd><p>sum of absolute differences, fast (default)
+</p></dd>
+<dt> &lsquo;<samp>sse</samp>&rsquo;</dt>
+<dd><p>sum of squared errors
+</p></dd>
+<dt> &lsquo;<samp>satd</samp>&rsquo;</dt>
+<dd><p>sum of absolute Hadamard transformed differences
+</p></dd>
+<dt> &lsquo;<samp>dct</samp>&rsquo;</dt>
+<dd><p>sum of absolute DCT transformed differences
+</p></dd>
+<dt> &lsquo;<samp>psnr</samp>&rsquo;</dt>
+<dd><p>sum of squared quantization errors (avoid, low quality)
+</p></dd>
+<dt> &lsquo;<samp>bit</samp>&rsquo;</dt>
+<dd><p>number of bits needed for the block
+</p></dd>
+<dt> &lsquo;<samp>rd</samp>&rsquo;</dt>
+<dd><p>rate distortion optimal, slow
+</p></dd>
+<dt> &lsquo;<samp>zero</samp>&rsquo;</dt>
+<dd><p>0
+</p></dd>
+<dt> &lsquo;<samp>vsad</samp>&rsquo;</dt>
+<dd><p>sum of absolute vertical differences
+</p></dd>
+<dt> &lsquo;<samp>vsse</samp>&rsquo;</dt>
+<dd><p>sum of squared vertical differences
+</p></dd>
+<dt> &lsquo;<samp>nsse</samp>&rsquo;</dt>
+<dd><p>noise preserving sum of squared differences
+</p></dd>
+<dt> &lsquo;<samp>dctmax</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>chroma</samp>&rsquo;</dt>
+</dl>
+</dd>
+<dt> &lsquo;<samp>-pre_dia_size[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>diamond type &amp; size for motion estimation pre-pass
+</p></dd>
+<dt> &lsquo;<samp>-subq[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>sub-pel motion estimation quality
+</p></dd>
+<dt> &lsquo;<samp>-me_range[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>limit motion vectors range (1023 for DivX player)
+</p></dd>
+<dt> &lsquo;<samp>-ibias[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>intra quant bias
+</p></dd>
+<dt> &lsquo;<samp>-pbias[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>inter quant bias
+</p></dd>
+<dt> &lsquo;<samp>-global_quality[:stream_specifier] <var>integer</var> (<em>output,audio,video</em>)</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>-coder[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd>
+<p>Possible values:
+</p><dl compact="compact">
+<dt> &lsquo;<samp>vlc</samp>&rsquo;</dt>
+<dd><p>variable length coder / Huffman coder
+</p></dd>
+<dt> &lsquo;<samp>ac</samp>&rsquo;</dt>
+<dd><p>arithmetic coder
+</p></dd>
+<dt> &lsquo;<samp>raw</samp>&rsquo;</dt>
+<dd><p>raw (no encoding)
+</p></dd>
+<dt> &lsquo;<samp>rle</samp>&rsquo;</dt>
+<dd><p>run-length coder
+</p></dd>
+<dt> &lsquo;<samp>deflate</samp>&rsquo;</dt>
+<dd><p>deflate-based coder
+</p></dd>
+</dl>
+</dd>
+<dt> &lsquo;<samp>-context[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>context model
+</p></dd>
+<dt> &lsquo;<samp>-mbd[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>macroblock decision algorithm (high quality mode)
+</p>
+<p>Possible values:
+</p><dl compact="compact">
+<dt> &lsquo;<samp>simple</samp>&rsquo;</dt>
+<dd><p>use mbcmp (default)
+</p></dd>
+<dt> &lsquo;<samp>bits</samp>&rsquo;</dt>
+<dd><p>use fewest bits
+</p></dd>
+<dt> &lsquo;<samp>rd</samp>&rsquo;</dt>
+<dd><p>use best rate distortion
+</p></dd>
+</dl>
+</dd>
+<dt> &lsquo;<samp>-sc_threshold[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>scene change threshold
+</p></dd>
+<dt> &lsquo;<samp>-lmin[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>minimum Lagrange factor (VBR)
+</p></dd>
+<dt> &lsquo;<samp>-lmax[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>maximum Lagrange factor (VBR)
+</p></dd>
+<dt> &lsquo;<samp>-nr[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>noise reduction
+</p></dd>
+<dt> &lsquo;<samp>-rc_init_occupancy[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>number of bits which should be loaded into the rc buffer before decoding starts
+</p></dd>
+<dt> &lsquo;<samp>-flags2[:stream_specifier] <var>flags</var> (<em>input/output,audio,video</em>)</samp>&rsquo;</dt>
+<dd>
+<p>Possible values:
+</p><dl compact="compact">
+<dt> &lsquo;<samp>fast</samp>&rsquo;</dt>
+<dd><p>allow non-spec-compliant speedup tricks
+</p></dd>
+<dt> &lsquo;<samp>noout</samp>&rsquo;</dt>
+<dd><p>skip bitstream encoding
+</p></dd>
+<dt> &lsquo;<samp>ignorecrop</samp>&rsquo;</dt>
+<dd><p>ignore cropping information from sps
+</p></dd>
+<dt> &lsquo;<samp>local_header</samp>&rsquo;</dt>
+<dd><p>place global headers at every keyframe instead of in extradata
+</p></dd>
+</dl>
+</dd>
+<dt> &lsquo;<samp>-error[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>-threads[:stream_specifier] <var>integer</var> (<em>input/output,video</em>)</samp>&rsquo;</dt>
+<dd>
+<p>Possible values:
+</p><dl compact="compact">
+<dt> &lsquo;<samp>auto</samp>&rsquo;</dt>
+<dd><p>autodetect a suitable number of threads to use
+</p></dd>
+</dl>
+</dd>
+<dt> &lsquo;<samp>-me_threshold[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>motion estimation threshold
+</p></dd>
+<dt> &lsquo;<samp>-mb_threshold[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>macroblock threshold
+</p></dd>
+<dt> &lsquo;<samp>-dc[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>intra_dc_precision
+</p></dd>
+<dt> &lsquo;<samp>-nssew[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>nsse weight
+</p></dd>
+<dt> &lsquo;<samp>-skip_top[:stream_specifier] <var>integer</var> (<em>input,video</em>)</samp>&rsquo;</dt>
+<dd><p>number of macroblock rows at the top which are skipped
+</p></dd>
+<dt> &lsquo;<samp>-skip_bottom[:stream_specifier] <var>integer</var> (<em>input,video</em>)</samp>&rsquo;</dt>
+<dd><p>number of macroblock rows at the bottom which are skipped
+</p></dd>
+<dt> &lsquo;<samp>-profile[:stream_specifier] <var>integer</var> (<em>output,audio,video</em>)</samp>&rsquo;</dt>
+<dd>
+<p>Possible values:
+</p><dl compact="compact">
+<dt> &lsquo;<samp>unknown</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>aac_main</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>aac_low</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>aac_ssr</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>aac_ltp</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>aac_he</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>aac_he_v2</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>aac_ld</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>aac_eld</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>mpeg2_aac_low</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>mpeg2_aac_he</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>dts</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>dts_es</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>dts_96_24</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>dts_hd_hra</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>dts_hd_ma</samp>&rsquo;</dt>
+</dl>
+</dd>
+<dt> &lsquo;<samp>-level[:stream_specifier] <var>integer</var> (<em>output,audio,video</em>)</samp>&rsquo;</dt>
+<dd>
+<p>Possible values:
+</p><dl compact="compact">
+<dt> &lsquo;<samp>unknown</samp>&rsquo;</dt>
+</dl>
+</dd>
+<dt> &lsquo;<samp>-skip_threshold[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>frame skip threshold
+</p></dd>
+<dt> &lsquo;<samp>-skip_factor[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>frame skip factor
+</p></dd>
+<dt> &lsquo;<samp>-skip_exp[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>frame skip exponent
+</p></dd>
+<dt> &lsquo;<samp>-skipcmp[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>frame skip compare function
+</p>
+<p>Possible values:
+</p><dl compact="compact">
+<dt> &lsquo;<samp>sad</samp>&rsquo;</dt>
+<dd><p>sum of absolute differences, fast (default)
+</p></dd>
+<dt> &lsquo;<samp>sse</samp>&rsquo;</dt>
+<dd><p>sum of squared errors
+</p></dd>
+<dt> &lsquo;<samp>satd</samp>&rsquo;</dt>
+<dd><p>sum of absolute Hadamard transformed differences
+</p></dd>
+<dt> &lsquo;<samp>dct</samp>&rsquo;</dt>
+<dd><p>sum of absolute DCT transformed differences
+</p></dd>
+<dt> &lsquo;<samp>psnr</samp>&rsquo;</dt>
+<dd><p>sum of squared quantization errors (avoid, low quality)
+</p></dd>
+<dt> &lsquo;<samp>bit</samp>&rsquo;</dt>
+<dd><p>number of bits needed for the block
+</p></dd>
+<dt> &lsquo;<samp>rd</samp>&rsquo;</dt>
+<dd><p>rate distortion optimal, slow
+</p></dd>
+<dt> &lsquo;<samp>zero</samp>&rsquo;</dt>
+<dd><p>0
+</p></dd>
+<dt> &lsquo;<samp>vsad</samp>&rsquo;</dt>
+<dd><p>sum of absolute vertical differences
+</p></dd>
+<dt> &lsquo;<samp>vsse</samp>&rsquo;</dt>
+<dd><p>sum of squared vertical differences
+</p></dd>
+<dt> &lsquo;<samp>nsse</samp>&rsquo;</dt>
+<dd><p>noise preserving sum of squared differences
+</p></dd>
+<dt> &lsquo;<samp>dctmax</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>chroma</samp>&rsquo;</dt>
+</dl>
+</dd>
+<dt> &lsquo;<samp>-border_mask[:stream_specifier] <var>float</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>increase the quantizer for macroblocks close to borders
+</p></dd>
+<dt> &lsquo;<samp>-mblmin[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>minimum macroblock Lagrange factor (VBR)
+</p></dd>
+<dt> &lsquo;<samp>-mblmax[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>maximum macroblock Lagrange factor (VBR)
+</p></dd>
+<dt> &lsquo;<samp>-mepc[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>motion estimation bitrate penalty compensation (1.0 = 256)
+</p></dd>
+<dt> &lsquo;<samp>-skip_loop_filter[:stream_specifier] <var>integer</var> (<em>input,video</em>)</samp>&rsquo;</dt>
+<dd>
+<p>Possible values:
+</p><dl compact="compact">
+<dt> &lsquo;<samp>none</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>default</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>noref</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>bidir</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>nokey</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>all</samp>&rsquo;</dt>
+</dl>
+</dd>
+<dt> &lsquo;<samp>-skip_idct[:stream_specifier] <var>integer</var> (<em>input,video</em>)</samp>&rsquo;</dt>
+<dd>
+<p>Possible values:
+</p><dl compact="compact">
+<dt> &lsquo;<samp>none</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>default</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>noref</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>bidir</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>nokey</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>all</samp>&rsquo;</dt>
+</dl>
+</dd>
+<dt> &lsquo;<samp>-skip_frame[:stream_specifier] <var>integer</var> (<em>input,video</em>)</samp>&rsquo;</dt>
+<dd>
+<p>Possible values:
+</p><dl compact="compact">
+<dt> &lsquo;<samp>none</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>default</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>noref</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>bidir</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>nokey</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>all</samp>&rsquo;</dt>
+</dl>
+</dd>
+<dt> &lsquo;<samp>-bidir_refine[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>refine the two motion vectors used in bidirectional macroblocks
+</p></dd>
+<dt> &lsquo;<samp>-brd_scale[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>downscale frames for dynamic B-frame decision
+</p></dd>
+<dt> &lsquo;<samp>-keyint_min[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>minimum interval between IDR-frames (x264)
+</p></dd>
+<dt> &lsquo;<samp>-refs[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>reference frames to consider for motion compensation
+</p></dd>
+<dt> &lsquo;<samp>-chromaoffset[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>chroma QP offset from luma
+</p></dd>
+<dt> &lsquo;<samp>-trellis[:stream_specifier] <var>integer</var> (<em>output,audio,video</em>)</samp>&rsquo;</dt>
+<dd><p>rate-distortion optimal quantization
+</p></dd>
+<dt> &lsquo;<samp>-sc_factor[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>multiplied by qscale for each frame and added to scene_change_score
+</p></dd>
+<dt> &lsquo;<samp>-mv0_threshold[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>-b_sensitivity[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>adjust sensitivity of b_frame_strategy 1
+</p></dd>
+<dt> &lsquo;<samp>-compression_level[:stream_specifier] <var>integer</var> (<em>output,audio,video</em>)</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>-min_prediction_order[:stream_specifier] <var>integer</var> (<em>output,audio</em>)</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>-max_prediction_order[:stream_specifier] <var>integer</var> (<em>output,audio</em>)</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>-timecode_frame_start[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>GOP timecode frame start number, in non-drop-frame format
+</p></dd>
+<dt> &lsquo;<samp>-request_channels[:stream_specifier] <var>integer</var> (<em>input,audio</em>)</samp>&rsquo;</dt>
+<dd><p>set desired number of audio channels
+</p></dd>
+<dt> &lsquo;<samp>-channel_layout[:stream_specifier] <var>integer</var> (<em>input/output,audio</em>)</samp>&rsquo;</dt>
+<dd>
+<p>Possible values:
+</p></dd>
+<dt> &lsquo;<samp>-request_channel_layout[:stream_specifier] <var>integer</var> (<em>input,audio</em>)</samp>&rsquo;</dt>
+<dd>
+<p>Possible values:
+</p></dd>
+<dt> &lsquo;<samp>-rc_max_vbv_use[:stream_specifier] <var>float</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>-rc_min_vbv_use[:stream_specifier] <var>float</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>-ticks_per_frame[:stream_specifier] <var>integer</var> (<em>input/output,audio,video</em>)</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>-color_primaries[:stream_specifier] <var>integer</var> (<em>input/output,video</em>)</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>-color_trc[:stream_specifier] <var>integer</var> (<em>input/output,video</em>)</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>-colorspace[:stream_specifier] <var>integer</var> (<em>input/output,video</em>)</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>-color_range[:stream_specifier] <var>integer</var> (<em>input/output,video</em>)</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>-chroma_sample_location[:stream_specifier] <var>integer</var> (<em>input/output,video</em>)</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>-slices[:stream_specifier] <var>integer</var> (<em>output,video</em>)</samp>&rsquo;</dt>
+<dd><p>number of slices, used in parallelized encoding
+</p></dd>
+<dt> &lsquo;<samp>-thread_type[:stream_specifier] <var>flags</var> (<em>input/output,video</em>)</samp>&rsquo;</dt>
+<dd><p>select multithreading type
+</p>
+<p>Possible values:
+</p><dl compact="compact">
+<dt> &lsquo;<samp>slice</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>frame</samp>&rsquo;</dt>
+</dl>
+</dd>
+<dt> &lsquo;<samp>-audio_service_type[:stream_specifier] <var>integer</var> (<em>output,audio</em>)</samp>&rsquo;</dt>
+<dd><p>audio service type
+</p>
+<p>Possible values:
+</p><dl compact="compact">
+<dt> &lsquo;<samp>ma</samp>&rsquo;</dt>
+<dd><p>Main Audio Service
+</p></dd>
+<dt> &lsquo;<samp>ef</samp>&rsquo;</dt>
+<dd><p>Effects
+</p></dd>
+<dt> &lsquo;<samp>vi</samp>&rsquo;</dt>
+<dd><p>Visually Impaired
+</p></dd>
+<dt> &lsquo;<samp>hi</samp>&rsquo;</dt>
+<dd><p>Hearing Impaired
+</p></dd>
+<dt> &lsquo;<samp>di</samp>&rsquo;</dt>
+<dd><p>Dialogue
+</p></dd>
+<dt> &lsquo;<samp>co</samp>&rsquo;</dt>
+<dd><p>Commentary
+</p></dd>
+<dt> &lsquo;<samp>em</samp>&rsquo;</dt>
+<dd><p>Emergency
+</p></dd>
+<dt> &lsquo;<samp>vo</samp>&rsquo;</dt>
+<dd><p>Voice Over
+</p></dd>
+<dt> &lsquo;<samp>ka</samp>&rsquo;</dt>
+<dd><p>Karaoke
+</p></dd>
+</dl>
+</dd>
+<dt> &lsquo;<samp>-request_sample_fmt[:stream_specifier] <var>integer</var> (<em>input,audio</em>)</samp>&rsquo;</dt>
+<dd>
+<p>Possible values:
+</p><dl compact="compact">
+<dt> &lsquo;<samp>u8</samp>&rsquo;</dt>
+<dd><p>8-bit unsigned integer
+</p></dd>
+<dt> &lsquo;<samp>s16</samp>&rsquo;</dt>
+<dd><p>16-bit signed integer
+</p></dd>
+<dt> &lsquo;<samp>s32</samp>&rsquo;</dt>
+<dd><p>32-bit signed integer
+</p></dd>
+<dt> &lsquo;<samp>flt</samp>&rsquo;</dt>
+<dd><p>32-bit float
+</p></dd>
+<dt> &lsquo;<samp>dbl</samp>&rsquo;</dt>
+<dd><p>64-bit double
+</p></dd>
+<dt> &lsquo;<samp>u8p</samp>&rsquo;</dt>
+<dd><p>8-bit unsigned integer planar
+</p></dd>
+<dt> &lsquo;<samp>s16p</samp>&rsquo;</dt>
+<dd><p>16-bit signed integer planar
+</p></dd>
+<dt> &lsquo;<samp>s32p</samp>&rsquo;</dt>
+<dd><p>32-bit signed integer planar
+</p></dd>
+<dt> &lsquo;<samp>fltp</samp>&rsquo;</dt>
+<dd><p>32-bit float planar
+</p></dd>
+<dt> &lsquo;<samp>dblp</samp>&rsquo;</dt>
+<dd><p>64-bit double planar
+</p></dd>
+</dl>
+</dd>
+<dt> &lsquo;<samp>-refcounted_frames[:stream_specifier] <var>integer</var> (<em>input,audio,video</em>)</samp>&rsquo;</dt>
+</dl>
+<a name="SEC8"></a>
+<h2 class="section"> <a href="#TOC8">3.5 Format AVOptions</a> </h2>
+<dl compact="compact">
+<dt> &lsquo;<samp>-probesize <var>integer</var> (<em>input</em>)</samp>&rsquo;</dt>
+<dd><p>set probing size
+</p></dd>
+<dt> &lsquo;<samp>-packetsize <var>integer</var> (<em>output</em>)</samp>&rsquo;</dt>
+<dd><p>set packet size
+</p></dd>
+<dt> &lsquo;<samp>-fflags <var>flags</var> (<em>input/output</em>)</samp>&rsquo;</dt>
+<dd>
+<p>Possible values:
+</p><dl compact="compact">
+<dt> &lsquo;<samp>flush_packets</samp>&rsquo;</dt>
+<dd><p>reduce the latency by flushing out packets immediately
+</p></dd>
+<dt> &lsquo;<samp>ignidx</samp>&rsquo;</dt>
+<dd><p>ignore index
+</p></dd>
+<dt> &lsquo;<samp>genpts</samp>&rsquo;</dt>
+<dd><p>generate pts
+</p></dd>
+<dt> &lsquo;<samp>nofillin</samp>&rsquo;</dt>
+<dd><p>do not fill in missing values that can be exactly calculated
+</p></dd>
+<dt> &lsquo;<samp>noparse</samp>&rsquo;</dt>
+<dd><p>disable AVParsers, this needs nofillin too
+</p></dd>
+<dt> &lsquo;<samp>igndts</samp>&rsquo;</dt>
+<dd><p>ignore dts
+</p></dd>
+<dt> &lsquo;<samp>discardcorrupt</samp>&rsquo;</dt>
+<dd><p>discard corrupted frames
+</p></dd>
+<dt> &lsquo;<samp>nobuffer</samp>&rsquo;</dt>
+<dd><p>reduce the latency introduced by optional buffering
+</p></dd>
+</dl>
+</dd>
+<dt> &lsquo;<samp>-analyzeduration <var>integer</var> (<em>input</em>)</samp>&rsquo;</dt>
+<dd><p>how many microseconds are analyzed to estimate duration
+</p></dd>
+<dt> &lsquo;<samp>-cryptokey <var>hexadecimal string</var> (<em>input</em>)</samp>&rsquo;</dt>
+<dd><p>decryption key
+</p></dd>
+<dt> &lsquo;<samp>-indexmem <var>integer</var> (<em>input</em>)</samp>&rsquo;</dt>
+<dd><p>max memory used for timestamp index (per stream)
+</p></dd>
+<dt> &lsquo;<samp>-rtbufsize <var>integer</var> (<em>input</em>)</samp>&rsquo;</dt>
+<dd><p>max memory used for buffering real-time frames
+</p></dd>
+<dt> &lsquo;<samp>-fdebug <var>flags</var> (<em>input/output</em>)</samp>&rsquo;</dt>
+<dd><p>print specific debug info
+</p>
+<p>Possible values:
+</p><dl compact="compact">
+<dt> &lsquo;<samp>ts</samp>&rsquo;</dt>
+</dl>
+</dd>
+<dt> &lsquo;<samp>-max_delay <var>integer</var> (<em>input/output</em>)</samp>&rsquo;</dt>
+<dd><p>maximum muxing or demuxing delay in microseconds
+</p></dd>
+<dt> &lsquo;<samp>-fpsprobesize <var>integer</var> (<em>input</em>)</samp>&rsquo;</dt>
+<dd><p>number of frames used to probe fps
+</p></dd>
+<dt> &lsquo;<samp>-f_err_detect <var>flags</var> (<em>input</em>)</samp>&rsquo;</dt>
+<dd><p>set error detection flags (deprecated; use err_detect, save via avconv)
+</p>
+<p>Possible values:
+</p><dl compact="compact">
+<dt> &lsquo;<samp>crccheck</samp>&rsquo;</dt>
+<dd><p>verify embedded CRCs
+</p></dd>
+<dt> &lsquo;<samp>bitstream</samp>&rsquo;</dt>
+<dd><p>detect bitstream specification deviations
+</p></dd>
+<dt> &lsquo;<samp>buffer</samp>&rsquo;</dt>
+<dd><p>detect improper bitstream length
+</p></dd>
+<dt> &lsquo;<samp>explode</samp>&rsquo;</dt>
+<dd><p>abort decoding on minor error detection
+</p></dd>
+</dl>
+</dd>
+<dt> &lsquo;<samp>-err_detect <var>flags</var> (<em>input</em>)</samp>&rsquo;</dt>
+<dd><p>set error detection flags
+</p>
+<p>Possible values:
+</p><dl compact="compact">
+<dt> &lsquo;<samp>crccheck</samp>&rsquo;</dt>
+<dd><p>verify embedded CRCs
+</p></dd>
+<dt> &lsquo;<samp>bitstream</samp>&rsquo;</dt>
+<dd><p>detect bitstream specification deviations
+</p></dd>
+<dt> &lsquo;<samp>buffer</samp>&rsquo;</dt>
+<dd><p>detect improper bitstream length
+</p></dd>
+<dt> &lsquo;<samp>explode</samp>&rsquo;</dt>
+<dd><p>abort decoding on minor error detection
+</p></dd>
+</dl>
+</dd>
+<dt> &lsquo;<samp>-max_interleave_delta <var>integer</var> (<em>output</em>)</samp>&rsquo;</dt>
+<dd><p>maximum buffering duration for interleaving
+</p></dd>
+</dl>
+
+<a name="SEC9"></a>
+<h2 class="section"> <a href="#TOC9">3.6 Main options</a> </h2>
+
+<dl compact="compact">
+<dt> &lsquo;<samp>-f <var>format</var></samp>&rsquo;</dt>
+<dd><p>Force format to use.
+</p>
+</dd>
+<dt> &lsquo;<samp>-of <var>formatter</var></samp>&rsquo;</dt>
+<dd><p>Use a specific formatter to output the document. The following
+formatters are available
+</p><dl compact="compact">
+<dt> &lsquo;<samp>ini</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>json</samp>&rsquo;</dt>
+<dt> &lsquo;<samp>old</samp>&rsquo;</dt>
+<dd><p>Pseudo-INI format that used to be the only one available in old
+avprobe versions.
+</p></dd>
+</dl>
+
+</dd>
+<dt> &lsquo;<samp>-unit</samp>&rsquo;</dt>
+<dd><p>Show the unit of the displayed values.
+</p>
+</dd>
+<dt> &lsquo;<samp>-prefix</samp>&rsquo;</dt>
+<dd><p>Use SI prefixes for the displayed values.
+Unless the &quot;-byte_binary_prefix&quot; option is used all the prefixes
+are decimal.
+</p>
+</dd>
+<dt> &lsquo;<samp>-byte_binary_prefix</samp>&rsquo;</dt>
+<dd><p>Force the use of binary prefixes for byte values.
+</p>
+</dd>
+<dt> &lsquo;<samp>-sexagesimal</samp>&rsquo;</dt>
+<dd><p>Use sexagesimal format HH:MM:SS.MICROSECONDS for time values.
+</p>
+</dd>
+<dt> &lsquo;<samp>-pretty</samp>&rsquo;</dt>
+<dd><p>Prettify the format of the displayed values, it corresponds to the
+options &quot;-unit -prefix -byte_binary_prefix -sexagesimal&quot;.
+</p>
+</dd>
+<dt> &lsquo;<samp>-show_format</samp>&rsquo;</dt>
+<dd><p>Show information about the container format of the input multimedia
+stream.
+</p>
+<p>All the container format information is printed within a section with
+name &quot;FORMAT&quot;.
+</p>
+</dd>
+<dt> &lsquo;<samp>-show_format_entry <var>name</var></samp>&rsquo;</dt>
+<dd><p>Like &lsquo;<samp>-show_format</samp>&rsquo;, but only prints the specified entry of the
+container format information, rather than all. This option may be given more
+than once, then all specified entries will be shown.
+</p>
+</dd>
+<dt> &lsquo;<samp>-show_packets</samp>&rsquo;</dt>
+<dd><p>Show information about each packet contained in the input multimedia
+stream.
+</p>
+<p>The information for each single packet is printed within a dedicated
+section with name &quot;PACKET&quot;.
+</p>
+</dd>
+<dt> &lsquo;<samp>-show_streams</samp>&rsquo;</dt>
+<dd><p>Show information about each media stream contained in the input
+multimedia stream.
+</p>
+<p>Each media stream information is printed within a dedicated section
+with name &quot;STREAM&quot;.
+</p>
+</dd>
+</dl>
+
+<a name="SEC10"></a>
+<h1 class="chapter"> <a href="#TOC10">4. Demuxers</a> </h1>
+
+<p>Demuxers are configured elements in Libav which allow to read the
+multimedia streams from a particular type of file.
+</p>
+<p>When you configure your Libav build, all the supported demuxers
+are enabled by default. You can list all available ones using the
+configure option &quot;&ndash;list-demuxers&quot;.
+</p>
+<p>You can disable all the demuxers using the configure option
+&quot;&ndash;disable-demuxers&quot;, and selectively enable a single demuxer with
+the option &quot;&ndash;enable-demuxer=<var>DEMUXER</var>&quot;, or disable it
+with the option &quot;&ndash;disable-demuxer=<var>DEMUXER</var>&quot;.
+</p>
+<p>The option &quot;-formats&quot; of the av* tools will display the list of
+enabled demuxers.
+</p>
+<p>The description of some of the currently available demuxers follows.
+</p>
+<a name="SEC11"></a>
+<h2 class="section"> <a href="#TOC11">4.1 image2</a> </h2>
+
+<p>Image file demuxer.
+</p>
+<p>This demuxer reads from a list of image files specified by a pattern.
+</p>
+<p>The pattern may contain the string &quot;%d&quot; or &quot;%0<var>N</var>d&quot;, which
+specifies the position of the characters representing a sequential
+number in each filename matched by the pattern. If the form
+&quot;%d0<var>N</var>d&quot; is used, the string representing the number in each
+filename is 0-padded and <var>N</var> is the total number of 0-padded
+digits representing the number. The literal character '%' can be
+specified in the pattern with the string &quot;%%&quot;.
+</p>
+<p>If the pattern contains &quot;%d&quot; or &quot;%0<var>N</var>d&quot;, the first filename of
+the file list specified by the pattern must contain a number
+inclusively contained between 0 and 4, all the following numbers must
+be sequential. This limitation may be hopefully fixed.
+</p>
+<p>The pattern may contain a suffix which is used to automatically
+determine the format of the images contained in the files.
+</p>
+<p>For example the pattern &quot;img-%03d.bmp&quot; will match a sequence of
+filenames of the form &lsquo;<tt>img-001.bmp</tt>&rsquo;, &lsquo;<tt>img-002.bmp</tt>&rsquo;, ...,
+&lsquo;<tt>img-010.bmp</tt>&rsquo;, etc.; the pattern &quot;i%%m%%g-%d.jpg&quot; will match a
+sequence of filenames of the form &lsquo;<tt>i%m%g-1.jpg</tt>&rsquo;,
+&lsquo;<tt>i%m%g-2.jpg</tt>&rsquo;, ..., &lsquo;<tt>i%m%g-10.jpg</tt>&rsquo;, etc.
+</p>
+<p>The size, the pixel format, and the format of each image must be the
+same for all the files in the sequence.
+</p>
+<p>The following example shows how to use <code>avconv</code> for creating a
+video from the images in the file sequence &lsquo;<tt>img-001.jpeg</tt>&rsquo;,
+&lsquo;<tt>img-002.jpeg</tt>&rsquo;, ..., assuming an input framerate of 10 frames per
+second:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">avconv -i 'img-%03d.jpeg' -r 10 out.mkv
+</pre></td></tr></table>
+
+<p>Note that the pattern must not necessarily contain &quot;%d&quot; or
+&quot;%0<var>N</var>d&quot;, for example to convert a single image file
+&lsquo;<tt>img.jpeg</tt>&rsquo; you can employ the command:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">avconv -i img.jpeg img.png
+</pre></td></tr></table>
+
+<dl compact="compact">
+<dt> &lsquo;<samp>-pixel_format <var>format</var></samp>&rsquo;</dt>
+<dd><p>Set the pixel format (for raw image)
+</p></dd>
+<dt> &lsquo;<samp>-video_size   <var>size</var></samp>&rsquo;</dt>
+<dd><p>Set the frame size (for raw image)
+</p></dd>
+<dt> &lsquo;<samp>-framerate    <var>rate</var></samp>&rsquo;</dt>
+<dd><p>Set the frame rate
+</p></dd>
+<dt> &lsquo;<samp>-loop         <var>bool</var></samp>&rsquo;</dt>
+<dd><p>Loop over the images
+</p></dd>
+<dt> &lsquo;<samp>-start_number <var>start</var></samp>&rsquo;</dt>
+<dd><p>Specify the first number in the sequence
+</p></dd>
+</dl>
+
+<a name="SEC12"></a>
+<h2 class="section"> <a href="#TOC12">4.2 applehttp</a> </h2>
+
+<p>Apple HTTP Live Streaming demuxer.
+</p>
+<p>This demuxer presents all AVStreams from all variant streams.
+The id field is set to the bitrate variant index number. By setting
+the discard flags on AVStreams (by pressing 'a' or 'v' in avplay),
+the caller can decide which variant streams to actually receive.
+The total bitrate of the variant that the stream belongs to is
+available in a metadata key named &quot;variant_bitrate&quot;.
+</p>
+<a name="SEC13"></a>
+<h2 class="section"> <a href="#TOC13">4.3 flv</a> </h2>
+
+<p>Adobe Flash Video Format demuxer.
+</p>
+<p>This demuxer is used to demux FLV files and RTMP network streams.
+</p>
+<dl compact="compact">
+<dt> &lsquo;<samp>-flv_metadata <var>bool</var></samp>&rsquo;</dt>
+<dd><p>Allocate the streams according to the onMetaData array content.
+</p></dd>
+</dl>
+
+<a name="SEC14"></a>
+<h2 class="section"> <a href="#TOC14">4.4 asf</a> </h2>
+
+<p>Advanced Systems Format demuxer.
+</p>
+<p>This demuxer is used to demux ASF files and MMS network streams.
+</p>
+<dl compact="compact">
+<dt> &lsquo;<samp>-no_resync_search <var>bool</var></samp>&rsquo;</dt>
+<dd><p>Do not try to resynchronize by looking for a certain optional start code.
+</p></dd>
+</dl>
+
+<a name="SEC15"></a>
+<h1 class="chapter"> <a href="#TOC15">5. Muxers</a> </h1>
+
+<p>Muxers are configured elements in Libav which allow writing
+multimedia streams to a particular type of file.
+</p>
+<p>When you configure your Libav build, all the supported muxers
+are enabled by default. You can list all available muxers using the
+configure option <code>--list-muxers</code>.
+</p>
+<p>You can disable all the muxers with the configure option
+<code>--disable-muxers</code> and selectively enable / disable single muxers
+with the options <code>--enable-muxer=<var>MUXER</var></code> /
+<code>--disable-muxer=<var>MUXER</var></code>.
+</p>
+<p>The option <code>-formats</code> of the av* tools will display the list of
+enabled muxers.
+</p>
+<p>A description of some of the currently available muxers follows.
+</p>
+<p><a name="crc"></a>
+</p><a name="SEC16"></a>
+<h2 class="section"> <a href="#TOC16">5.1 crc</a> </h2>
+
+<p>CRC (Cyclic Redundancy Check) testing format.
+</p>
+<p>This muxer computes and prints the Adler-32 CRC of all the input audio
+and video frames. By default audio frames are converted to signed
+16-bit raw audio and video frames to raw video before computing the
+CRC.
+</p>
+<p>The output of the muxer consists of a single line of the form:
+CRC=0x<var>CRC</var>, where <var>CRC</var> is a hexadecimal number 0-padded to
+8 digits containing the CRC for all the decoded input frames.
+</p>
+<p>For example to compute the CRC of the input, and store it in the file
+&lsquo;<tt>out.crc</tt>&rsquo;:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">avconv -i INPUT -f crc out.crc
+</pre></td></tr></table>
+
+<p>You can print the CRC to stdout with the command:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">avconv -i INPUT -f crc -
+</pre></td></tr></table>
+
+<p>You can select the output format of each frame with <code>avconv</code> by
+specifying the audio and video codec and format. For example to
+compute the CRC of the input audio converted to PCM unsigned 8-bit
+and the input video converted to MPEG-2 video, use the command:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">avconv -i INPUT -c:a pcm_u8 -c:v mpeg2video -f crc -
+</pre></td></tr></table>
+
+<p>See also the <a href="#framecrc">framecrc</a> muxer.
+</p>
+<p><a name="framecrc"></a>
+</p><a name="SEC17"></a>
+<h2 class="section"> <a href="#TOC17">5.2 framecrc</a> </h2>
+
+<p>Per-frame CRC (Cyclic Redundancy Check) testing format.
+</p>
+<p>This muxer computes and prints the Adler-32 CRC for each decoded audio
+and video frame. By default audio frames are converted to signed
+16-bit raw audio and video frames to raw video before computing the
+CRC.
+</p>
+<p>The output of the muxer consists of a line for each audio and video
+frame of the form: <var>stream_index</var>, <var>frame_dts</var>,
+<var>frame_size</var>, 0x<var>CRC</var>, where <var>CRC</var> is a hexadecimal
+number 0-padded to 8 digits containing the CRC of the decoded frame.
+</p>
+<p>For example to compute the CRC of each decoded frame in the input, and
+store it in the file &lsquo;<tt>out.crc</tt>&rsquo;:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">avconv -i INPUT -f framecrc out.crc
+</pre></td></tr></table>
+
+<p>You can print the CRC of each decoded frame to stdout with the command:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">avconv -i INPUT -f framecrc -
+</pre></td></tr></table>
+
+<p>You can select the output format of each frame with <code>avconv</code> by
+specifying the audio and video codec and format. For example, to
+compute the CRC of each decoded input audio frame converted to PCM
+unsigned 8-bit and of each decoded input video frame converted to
+MPEG-2 video, use the command:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">avconv -i INPUT -c:a pcm_u8 -c:v mpeg2video -f framecrc -
+</pre></td></tr></table>
+
+<p>See also the <a href="#crc">crc</a> muxer.
+</p>
+<p><a name="hls"></a>
+</p><a name="SEC18"></a>
+<h2 class="section"> <a href="#TOC18">5.3 hls</a> </h2>
+
+<p>Apple HTTP Live Streaming muxer that segments MPEG-TS according to
+the HTTP Live Streaming specification.
+</p>
+<p>It creates a playlist file and numbered segment files. The output
+filename specifies the playlist filename; the segment filenames
+receive the same basename as the playlist, a sequential number and
+a .ts extension.
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">avconv -i in.nut out.m3u8
+</pre></td></tr></table>
+
+<dl compact="compact">
+<dt> &lsquo;<samp>-hls_time <var>seconds</var></samp>&rsquo;</dt>
+<dd><p>Set the segment length in seconds.
+</p></dd>
+<dt> &lsquo;<samp>-hls_list_size <var>size</var></samp>&rsquo;</dt>
+<dd><p>Set the maximum number of playlist entries.
+</p></dd>
+<dt> &lsquo;<samp>-hls_wrap <var>wrap</var></samp>&rsquo;</dt>
+<dd><p>Set the number after which index wraps.
+</p></dd>
+<dt> &lsquo;<samp>-start_number <var>number</var></samp>&rsquo;</dt>
+<dd><p>Start the sequence from <var>number</var>.
+</p></dd>
+</dl>
+
+<p><a name="image2"></a>
+</p><a name="SEC19"></a>
+<h2 class="section"> <a href="#TOC19">5.4 image2</a> </h2>
+
+<p>Image file muxer.
+</p>
+<p>The image file muxer writes video frames to image files.
+</p>
+<p>The output filenames are specified by a pattern, which can be used to
+produce sequentially numbered series of files.
+The pattern may contain the string &quot;%d&quot; or &quot;%0<var>N</var>d&quot;, this string
+specifies the position of the characters representing a numbering in
+the filenames. If the form &quot;%0<var>N</var>d&quot; is used, the string
+representing the number in each filename is 0-padded to <var>N</var>
+digits. The literal character '%' can be specified in the pattern with
+the string &quot;%%&quot;.
+</p>
+<p>If the pattern contains &quot;%d&quot; or &quot;%0<var>N</var>d&quot;, the first filename of
+the file list specified will contain the number 1, all the following
+numbers will be sequential.
+</p>
+<p>The pattern may contain a suffix which is used to automatically
+determine the format of the image files to write.
+</p>
+<p>For example the pattern &quot;img-%03d.bmp&quot; will specify a sequence of
+filenames of the form &lsquo;<tt>img-001.bmp</tt>&rsquo;, &lsquo;<tt>img-002.bmp</tt>&rsquo;, ...,
+&lsquo;<tt>img-010.bmp</tt>&rsquo;, etc.
+The pattern &quot;img%%-%d.jpg&quot; will specify a sequence of filenames of the
+form &lsquo;<tt>img%-1.jpg</tt>&rsquo;, &lsquo;<tt>img%-2.jpg</tt>&rsquo;, ..., &lsquo;<tt>img%-10.jpg</tt>&rsquo;,
+etc.
+</p>
+<p>The following example shows how to use <code>avconv</code> for creating a
+sequence of files &lsquo;<tt>img-001.jpeg</tt>&rsquo;, &lsquo;<tt>img-002.jpeg</tt>&rsquo;, ...,
+taking one image every second from the input video:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">avconv -i in.avi -vsync 1 -r 1 -f image2 'img-%03d.jpeg'
+</pre></td></tr></table>
+
+<p>Note that with <code>avconv</code>, if the format is not specified with the
+<code>-f</code> option and the output filename specifies an image file
+format, the image2 muxer is automatically selected, so the previous
+command can be written as:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">avconv -i in.avi -vsync 1 -r 1 'img-%03d.jpeg'
+</pre></td></tr></table>
+
+<p>Note also that the pattern must not necessarily contain &quot;%d&quot; or
+&quot;%0<var>N</var>d&quot;, for example to create a single image file
+&lsquo;<tt>img.jpeg</tt>&rsquo; from the input video you can employ the command:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">avconv -i in.avi -f image2 -frames:v 1 img.jpeg
+</pre></td></tr></table>
+
+<dl compact="compact">
+<dt> &lsquo;<samp>-start_number <var>number</var></samp>&rsquo;</dt>
+<dd><p>Start the sequence from <var>number</var>.
+</p>
+</dd>
+<dt> &lsquo;<samp>-update <var>number</var></samp>&rsquo;</dt>
+<dd><p>If <var>number</var> is nonzero, the filename will always be interpreted as just a
+filename, not a pattern, and this file will be continuously overwritten with new
+images.
+</p>
+</dd>
+</dl>
+
+<a name="SEC20"></a>
+<h2 class="section"> <a href="#TOC20">5.5 matroska</a> </h2>
+
+<p>Matroska container muxer.
+</p>
+<p>This muxer implements the matroska and webm container specs.
+</p>
+<p>The recognized metadata settings in this muxer are:
+</p>
+<dl compact="compact">
+<dt> &lsquo;<samp>title=<var>title name</var></samp>&rsquo;</dt>
+<dd><p>Name provided to a single track
+</p></dd>
+</dl>
+
+<dl compact="compact">
+<dt> &lsquo;<samp>language=<var>language name</var></samp>&rsquo;</dt>
+<dd><p>Specifies the language of the track in the Matroska languages form
+</p></dd>
+</dl>
+
+<dl compact="compact">
+<dt> &lsquo;<samp>STEREO_MODE=<var>mode</var></samp>&rsquo;</dt>
+<dd><p>Stereo 3D video layout of two views in a single video track
+</p><dl compact="compact">
+<dt> &lsquo;<samp>mono</samp>&rsquo;</dt>
+<dd><p>video is not stereo
+</p></dd>
+<dt> &lsquo;<samp>left_right</samp>&rsquo;</dt>
+<dd><p>Both views are arranged side by side, Left-eye view is on the left
+</p></dd>
+<dt> &lsquo;<samp>bottom_top</samp>&rsquo;</dt>
+<dd><p>Both views are arranged in top-bottom orientation, Left-eye view is at bottom
+</p></dd>
+<dt> &lsquo;<samp>top_bottom</samp>&rsquo;</dt>
+<dd><p>Both views are arranged in top-bottom orientation, Left-eye view is on top
+</p></dd>
+<dt> &lsquo;<samp>checkerboard_rl</samp>&rsquo;</dt>
+<dd><p>Each view is arranged in a checkerboard interleaved pattern, Left-eye view being first
+</p></dd>
+<dt> &lsquo;<samp>checkerboard_lr</samp>&rsquo;</dt>
+<dd><p>Each view is arranged in a checkerboard interleaved pattern, Right-eye view being first
+</p></dd>
+<dt> &lsquo;<samp>row_interleaved_rl</samp>&rsquo;</dt>
+<dd><p>Each view is constituted by a row based interleaving, Right-eye view is first row
+</p></dd>
+<dt> &lsquo;<samp>row_interleaved_lr</samp>&rsquo;</dt>
+<dd><p>Each view is constituted by a row based interleaving, Left-eye view is first row
+</p></dd>
+<dt> &lsquo;<samp>col_interleaved_rl</samp>&rsquo;</dt>
+<dd><p>Both views are arranged in a column based interleaving manner, Right-eye view is first column
+</p></dd>
+<dt> &lsquo;<samp>col_interleaved_lr</samp>&rsquo;</dt>
+<dd><p>Both views are arranged in a column based interleaving manner, Left-eye view is first column
+</p></dd>
+<dt> &lsquo;<samp>anaglyph_cyan_red</samp>&rsquo;</dt>
+<dd><p>All frames are in anaglyph format viewable through red-cyan filters
+</p></dd>
+<dt> &lsquo;<samp>right_left</samp>&rsquo;</dt>
+<dd><p>Both views are arranged side by side, Right-eye view is on the left
+</p></dd>
+<dt> &lsquo;<samp>anaglyph_green_magenta</samp>&rsquo;</dt>
+<dd><p>All frames are in anaglyph format viewable through green-magenta filters
+</p></dd>
+<dt> &lsquo;<samp>block_lr</samp>&rsquo;</dt>
+<dd><p>Both eyes laced in one Block, Left-eye view is first
+</p></dd>
+<dt> &lsquo;<samp>block_rl</samp>&rsquo;</dt>
+<dd><p>Both eyes laced in one Block, Right-eye view is first
+</p></dd>
+</dl>
+</dd>
+</dl>
+
+<p>For example a 3D WebM clip can be created using the following command line:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">avconv -i sample_left_right_clip.mpg -an -c:v libvpx -metadata STEREO_MODE=left_right -y stereo_clip.webm
+</pre></td></tr></table>
+
+<p>This muxer supports the following options:
+</p>
+<dl compact="compact">
+<dt> &lsquo;<samp>reserve_index_space</samp>&rsquo;</dt>
+<dd><p>By default, this muxer writes the index for seeking (called cues in Matroska
+terms) at the end of the file, because it cannot know in advance how much space
+to leave for the index at the beginning of the file. However for some use cases
+&ndash; e.g.  streaming where seeking is possible but slow &ndash; it is useful to put the
+index at the beginning of the file.
+</p>
+<p>If this option is set to a non-zero value, the muxer will reserve a given amount
+of space in the file header and then try to write the cues there when the muxing
+finishes. If the available space does not suffice, muxing will fail. A safe size
+for most use cases should be about 50kB per hour of video.
+</p>
+<p>Note that cues are only written if the output is seekable and this option will
+have no effect if it is not.
+</p>
+</dd>
+</dl>
+
+<a name="SEC21"></a>
+<h2 class="section"> <a href="#TOC21">5.6 mov, mp4, ismv</a> </h2>
+
+<p>The mov/mp4/ismv muxer supports fragmentation. Normally, a MOV/MP4
+file has all the metadata about all packets stored in one location
+(written at the end of the file, it can be moved to the start for
+better playback using the <code>qt-faststart</code> tool). A fragmented
+file consists of a number of fragments, where packets and metadata
+about these packets are stored together. Writing a fragmented
+file has the advantage that the file is decodable even if the
+writing is interrupted (while a normal MOV/MP4 is undecodable if
+it is not properly finished), and it requires less memory when writing
+very long files (since writing normal MOV/MP4 files stores info about
+every single packet in memory until the file is closed). The downside
+is that it is less compatible with other applications.
+</p>
+<p>Fragmentation is enabled by setting one of the AVOptions that define
+how to cut the file into fragments:
+</p>
+<dl compact="compact">
+<dt> &lsquo;<samp>-movflags frag_keyframe</samp>&rsquo;</dt>
+<dd><p>Start a new fragment at each video keyframe.
+</p></dd>
+<dt> &lsquo;<samp>-frag_duration <var>duration</var></samp>&rsquo;</dt>
+<dd><p>Create fragments that are <var>duration</var> microseconds long.
+</p></dd>
+<dt> &lsquo;<samp>-frag_size <var>size</var></samp>&rsquo;</dt>
+<dd><p>Create fragments that contain up to <var>size</var> bytes of payload data.
+</p></dd>
+<dt> &lsquo;<samp>-movflags frag_custom</samp>&rsquo;</dt>
+<dd><p>Allow the caller to manually choose when to cut fragments, by
+calling <code>av_write_frame(ctx, NULL)</code> to write a fragment with
+the packets written so far. (This is only useful with other
+applications integrating libavformat, not from <code>avconv</code>.)
+</p></dd>
+<dt> &lsquo;<samp>-min_frag_duration <var>duration</var></samp>&rsquo;</dt>
+<dd><p>Don't create fragments that are shorter than <var>duration</var> microseconds long.
+</p></dd>
+</dl>
+
+<p>If more than one condition is specified, fragments are cut when
+one of the specified conditions is fulfilled. The exception to this is
+<code>-min_frag_duration</code>, which has to be fulfilled for any of the other
+conditions to apply.
+</p>
+<p>Additionally, the way the output file is written can be adjusted
+through a few other options:
+</p>
+<dl compact="compact">
+<dt> &lsquo;<samp>-movflags empty_moov</samp>&rsquo;</dt>
+<dd><p>Write an initial moov atom directly at the start of the file, without
+describing any samples in it. Generally, an mdat/moov pair is written
+at the start of the file, as a normal MOV/MP4 file, containing only
+a short portion of the file. With this option set, there is no initial
+mdat atom, and the moov atom only describes the tracks but has
+a zero duration.
+</p>
+<p>Files written with this option set do not work in QuickTime.
+This option is implicitly set when writing ismv (Smooth Streaming) files.
+</p></dd>
+<dt> &lsquo;<samp>-movflags separate_moof</samp>&rsquo;</dt>
+<dd><p>Write a separate moof (movie fragment) atom for each track. Normally,
+packets for all tracks are written in a moof atom (which is slightly
+more efficient), but with this option set, the muxer writes one moof/mdat
+pair for each track, making it easier to separate tracks.
+</p>
+<p>This option is implicitly set when writing ismv (Smooth Streaming) files.
+</p></dd>
+<dt> &lsquo;<samp>-movflags faststart</samp>&rsquo;</dt>
+<dd><p>Run a second pass moving the index (moov atom) to the beginning of the file.
+This operation can take a while, and will not work in various situations such
+as fragmented output, thus it is not enabled by default.
+</p></dd>
+</dl>
+
+<p>Smooth Streaming content can be pushed in real time to a publishing
+point on IIS with this muxer. Example:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">avconv -re <var>&lt;normal input/transcoding options&gt;</var> -movflags isml+frag_keyframe -f ismv http://server/publishingpoint.isml/Streams(Encoder1)
+</pre></td></tr></table>
+
+<a name="SEC22"></a>
+<h2 class="section"> <a href="#TOC22">5.7 mp3</a> </h2>
+
+<p>The MP3 muxer writes a raw MP3 stream with an ID3v2 header at the beginning and
+optionally an ID3v1 tag at the end. ID3v2.3 and ID3v2.4 are supported, the
+<code>id3v2_version</code> option controls which one is used. Setting
+<code>id3v2_version</code> to 0 will disable the ID3v2 header completely. The legacy
+ID3v1 tag is not written by default, but may be enabled with the
+<code>write_id3v1</code> option.
+</p>
+<p>The muxer may also write a Xing frame at the beginning, which contains the
+number of frames in the file. It is useful for computing duration of VBR files.
+The Xing frame is written if the output stream is seekable and if the
+<code>write_xing</code> option is set to 1 (the default).
+</p>
+<p>The muxer supports writing ID3v2 attached pictures (APIC frames). The pictures
+are supplied to the muxer in form of a video stream with a single packet. There
+can be any number of those streams, each will correspond to a single APIC frame.
+The stream metadata tags <var>title</var> and <var>comment</var> map to APIC
+<var>description</var> and <var>picture type</var> respectively. See
+<a href="http://id3.org/id3v2.4.0-frames">http://id3.org/id3v2.4.0-frames</a> for allowed picture types.
+</p>
+<p>Note that the APIC frames must be written at the beginning, so the muxer will
+buffer the audio frames until it gets all the pictures. It is therefore advised
+to provide the pictures as soon as possible to avoid excessive buffering.
+</p>
+<p>Examples:
+</p>
+<p>Write an mp3 with an ID3v2.3 header and an ID3v1 footer:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">avconv -i INPUT -id3v2_version 3 -write_id3v1 1 out.mp3
+</pre></td></tr></table>
+
+<p>Attach a picture to an mp3:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">avconv -i input.mp3 -i cover.png -c copy -metadata:s:v title=&quot;Album cover&quot;
+-metadata:s:v comment=&quot;Cover (Front)&quot; out.mp3
+</pre></td></tr></table>
+
+<p>Write a &quot;clean&quot; MP3 without any extra features:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">avconv -i input.wav -write_xing 0 -id3v2_version 0 out.mp3
+</pre></td></tr></table>
+
+<a name="SEC23"></a>
+<h2 class="section"> <a href="#TOC23">5.8 mpegts</a> </h2>
+
+<p>MPEG transport stream muxer.
+</p>
+<p>This muxer implements ISO 13818-1 and part of ETSI EN 300 468.
+</p>
+<p>The muxer options are:
+</p>
+<dl compact="compact">
+<dt> &lsquo;<samp>-mpegts_original_network_id <var>number</var></samp>&rsquo;</dt>
+<dd><p>Set the original_network_id (default 0x0001). This is unique identifier
+of a network in DVB. Its main use is in the unique identification of a
+service through the path Original_Network_ID, Transport_Stream_ID.
+</p></dd>
+<dt> &lsquo;<samp>-mpegts_transport_stream_id <var>number</var></samp>&rsquo;</dt>
+<dd><p>Set the transport_stream_id (default 0x0001). This identifies a
+transponder in DVB.
+</p></dd>
+<dt> &lsquo;<samp>-mpegts_service_id <var>number</var></samp>&rsquo;</dt>
+<dd><p>Set the service_id (default 0x0001) also known as program in DVB.
+</p></dd>
+<dt> &lsquo;<samp>-mpegts_pmt_start_pid <var>number</var></samp>&rsquo;</dt>
+<dd><p>Set the first PID for PMT (default 0x1000, max 0x1f00).
+</p></dd>
+<dt> &lsquo;<samp>-mpegts_start_pid <var>number</var></samp>&rsquo;</dt>
+<dd><p>Set the first PID for data packets (default 0x0100, max 0x0f00).
+</p></dd>
+</dl>
+
+<p>The recognized metadata settings in mpegts muxer are <code>service_provider</code>
+and <code>service_name</code>. If they are not set the default for
+<code>service_provider</code> is &quot;Libav&quot; and the default for
+<code>service_name</code> is &quot;Service01&quot;.
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">avconv -i file.mpg -c copy \
+     -mpegts_original_network_id 0x1122 \
+     -mpegts_transport_stream_id 0x3344 \
+     -mpegts_service_id 0x5566 \
+     -mpegts_pmt_start_pid 0x1500 \
+     -mpegts_start_pid 0x150 \
+     -metadata service_provider=&quot;Some provider&quot; \
+     -metadata service_name=&quot;Some Channel&quot; \
+     -y out.ts
+</pre></td></tr></table>
+
+<a name="SEC24"></a>
+<h2 class="section"> <a href="#TOC24">5.9 null</a> </h2>
+
+<p>Null muxer.
+</p>
+<p>This muxer does not generate any output file, it is mainly useful for
+testing or benchmarking purposes.
+</p>
+<p>For example to benchmark decoding with <code>avconv</code> you can use the
+command:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">avconv -benchmark -i INPUT -f null out.null
+</pre></td></tr></table>
+
+<p>Note that the above command does not read or write the &lsquo;<tt>out.null</tt>&rsquo;
+file, but specifying the output file is required by the <code>avconv</code>
+syntax.
+</p>
+<p>Alternatively you can write the command as:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">avconv -benchmark -i INPUT -f null -
+</pre></td></tr></table>
+
+<a name="SEC25"></a>
+<h2 class="section"> <a href="#TOC25">5.10 ogg</a> </h2>
+
+<p>Ogg container muxer.
+</p>
+<dl compact="compact">
+<dt> &lsquo;<samp>-page_duration <var>duration</var></samp>&rsquo;</dt>
+<dd><p>Preferred page duration, in microseconds. The muxer will attempt to create
+pages that are approximately <var>duration</var> microseconds long. This allows the
+user to compromise between seek granularity and container overhead. The default
+is 1 second. A value of 0 will fill all segments, making pages as large as
+possible. A value of 1 will effectively use 1 packet-per-page in most
+situations, giving a small seek granularity at the cost of additional container
+overhead.
+</p></dd>
+</dl>
+
+<a name="SEC26"></a>
+<h2 class="section"> <a href="#TOC26">5.11 segment</a> </h2>
+
+<p>Basic stream segmenter.
+</p>
+<p>The segmenter muxer outputs streams to a number of separate files of nearly
+fixed duration. Output filename pattern can be set in a fashion similar to
+<a href="#image2">image2</a>.
+</p>
+<p>Every segment starts with a video keyframe, if a video stream is present.
+The segment muxer works best with a single constant frame rate video.
+</p>
+<p>Optionally it can generate a flat list of the created segments, one segment
+per line.
+</p>
+<dl compact="compact">
+<dt> &lsquo;<samp>segment_format <var>format</var></samp>&rsquo;</dt>
+<dd><p>Override the inner container format, by default it is guessed by the filename
+extension.
+</p></dd>
+<dt> &lsquo;<samp>segment_time <var>t</var></samp>&rsquo;</dt>
+<dd><p>Set segment duration to <var>t</var> seconds.
+</p></dd>
+<dt> &lsquo;<samp>segment_list <var>name</var></samp>&rsquo;</dt>
+<dd><p>Generate also a listfile named <var>name</var>.
+</p></dd>
+<dt> &lsquo;<samp>segment_list_size <var>size</var></samp>&rsquo;</dt>
+<dd><p>Overwrite the listfile once it reaches <var>size</var> entries.
+</p></dd>
+<dt> &lsquo;<samp>segment_wrap <var>limit</var></samp>&rsquo;</dt>
+<dd><p>Wrap around segment index once it reaches <var>limit</var>.
+</p></dd>
+</dl>
+
+<table><tr><td>&nbsp;</td><td><pre class="example">avconv -i in.mkv -c copy -map 0 -f segment -list out.list out%03d.nut
+</pre></td></tr></table>
+
+<a name="SEC27"></a>
+<h1 class="chapter"> <a href="#TOC27">6. Protocols</a> </h1>
+
+<p>Protocols are configured elements in Libav which allow to access
+resources which require the use of a particular protocol.
+</p>
+<p>When you configure your Libav build, all the supported protocols are
+enabled by default. You can list all available ones using the
+configure option &quot;&ndash;list-protocols&quot;.
+</p>
+<p>You can disable all the protocols using the configure option
+&quot;&ndash;disable-protocols&quot;, and selectively enable a protocol using the
+option &quot;&ndash;enable-protocol=<var>PROTOCOL</var>&quot;, or you can disable a
+particular protocol using the option
+&quot;&ndash;disable-protocol=<var>PROTOCOL</var>&quot;.
+</p>
+<p>The option &quot;-protocols&quot; of the av* tools will display the list of
+supported protocols.
+</p>
+<p>A description of the currently available protocols follows.
+</p>
+<a name="SEC28"></a>
+<h2 class="section"> <a href="#TOC28">6.1 concat</a> </h2>
+
+<p>Physical concatenation protocol.
+</p>
+<p>Allow to read and seek from many resource in sequence as if they were
+a unique resource.
+</p>
+<p>A URL accepted by this protocol has the syntax:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">concat:<var>URL1</var>|<var>URL2</var>|...|<var>URLN</var>
+</pre></td></tr></table>
+
+<p>where <var>URL1</var>, <var>URL2</var>, ..., <var>URLN</var> are the urls of the
+resource to be concatenated, each one possibly specifying a distinct
+protocol.
+</p>
+<p>For example to read a sequence of files &lsquo;<tt>split1.mpeg</tt>&rsquo;,
+&lsquo;<tt>split2.mpeg</tt>&rsquo;, &lsquo;<tt>split3.mpeg</tt>&rsquo; with <code>avplay</code> use the
+command:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">avplay concat:split1.mpeg\|split2.mpeg\|split3.mpeg
+</pre></td></tr></table>
+
+<p>Note that you may need to escape the character &quot;|&quot; which is special for
+many shells.
+</p>
+<a name="SEC29"></a>
+<h2 class="section"> <a href="#TOC29">6.2 file</a> </h2>
+
+<p>File access protocol.
+</p>
+<p>Allow to read from or read to a file.
+</p>
+<p>For example to read from a file &lsquo;<tt>input.mpeg</tt>&rsquo; with <code>avconv</code>
+use the command:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">avconv -i file:input.mpeg output.mpeg
+</pre></td></tr></table>
+
+<p>The av* tools default to the file protocol, that is a resource
+specified with the name &quot;FILE.mpeg&quot; is interpreted as the URL
+&quot;file:FILE.mpeg&quot;.
+</p>
+<a name="SEC30"></a>
+<h2 class="section"> <a href="#TOC30">6.3 gopher</a> </h2>
+
+<p>Gopher protocol.
+</p>
+<a name="SEC31"></a>
+<h2 class="section"> <a href="#TOC31">6.4 hls</a> </h2>
+
+<p>Read Apple HTTP Live Streaming compliant segmented stream as
+a uniform one. The M3U8 playlists describing the segments can be
+remote HTTP resources or local files, accessed using the standard
+file protocol.
+The nested protocol is declared by specifying
+&quot;+<var>proto</var>&quot; after the hls URI scheme name, where <var>proto</var>
+is either &quot;file&quot; or &quot;http&quot;.
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">hls+http://host/path/to/remote/resource.m3u8
+hls+file://path/to/local/resource.m3u8
+</pre></td></tr></table>
+
+<p>Using this protocol is discouraged - the hls demuxer should work
+just as well (if not, please report the issues) and is more complete.
+To use the hls demuxer instead, simply use the direct URLs to the
+m3u8 files.
+</p>
+<a name="SEC32"></a>
+<h2 class="section"> <a href="#TOC32">6.5 http</a> </h2>
+
+<p>HTTP (Hyper Text Transfer Protocol).
+</p>
+<p>This protocol accepts the following options:
+</p>
+<dl compact="compact">
+<dt> &lsquo;<samp>chunked_post</samp>&rsquo;</dt>
+<dd><p>If set to 1 use chunked Transfer-Encoding for posts, default is 1.
+</p>
+</dd>
+<dt> &lsquo;<samp>content_type</samp>&rsquo;</dt>
+<dd><p>Set a specific content type for the POST messages.
+</p>
+</dd>
+<dt> &lsquo;<samp>headers</samp>&rsquo;</dt>
+<dd><p>Set custom HTTP headers, can override built in default headers. The
+value must be a string encoding the headers.
+</p>
+</dd>
+<dt> &lsquo;<samp>multiple_requests</samp>&rsquo;</dt>
+<dd><p>Use persistent connections if set to 1, default is 0.
+</p>
+</dd>
+<dt> &lsquo;<samp>post_data</samp>&rsquo;</dt>
+<dd><p>Set custom HTTP post data.
+</p>
+</dd>
+<dt> &lsquo;<samp>user_agent</samp>&rsquo;</dt>
+<dd><p>Override the User-Agent header. If not specified a string of the form
+&quot;Lavf/&lt;version&gt;&quot; will be used.
+</p>
+</dd>
+<dt> &lsquo;<samp>mime_type</samp>&rsquo;</dt>
+<dd><p>Export the MIME type.
+</p>
+</dd>
+<dt> &lsquo;<samp>icy</samp>&rsquo;</dt>
+<dd><p>If set to 1 request ICY (SHOUTcast) metadata from the server. If the server
+supports this, the metadata has to be retrieved by the application by reading
+the &lsquo;<samp>icy_metadata_headers</samp>&rsquo; and &lsquo;<samp>icy_metadata_packet</samp>&rsquo; options.
+The default is 0.
+</p>
+</dd>
+<dt> &lsquo;<samp>icy_metadata_headers</samp>&rsquo;</dt>
+<dd><p>If the server supports ICY metadata, this contains the ICY-specific HTTP reply
+headers, separated by newline characters.
+</p>
+</dd>
+<dt> &lsquo;<samp>icy_metadata_packet</samp>&rsquo;</dt>
+<dd><p>If the server supports ICY metadata, and &lsquo;<samp>icy</samp>&rsquo; was set to 1, this
+contains the last non-empty metadata packet sent by the server. It should be
+polled in regular intervals by applications interested in mid-stream metadata
+updates.
+</p>
+</dd>
+<dt> &lsquo;<samp>offset</samp>&rsquo;</dt>
+<dd><p>Set initial byte offset.
+</p>
+</dd>
+<dt> &lsquo;<samp>end_offset</samp>&rsquo;</dt>
+<dd><p>Try to limit the request to bytes preceding this offset.
+</p></dd>
+</dl>
+
+<a name="SEC33"></a>
+<h2 class="section"> <a href="#TOC33">6.6 mmst</a> </h2>
+
+<p>MMS (Microsoft Media Server) protocol over TCP.
+</p>
+<a name="SEC34"></a>
+<h2 class="section"> <a href="#TOC34">6.7 mmsh</a> </h2>
+
+<p>MMS (Microsoft Media Server) protocol over HTTP.
+</p>
+<p>The required syntax is:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">mmsh://<var>server</var>[:<var>port</var>][/<var>app</var>][/<var>playpath</var>]
+</pre></td></tr></table>
+
+<a name="SEC35"></a>
+<h2 class="section"> <a href="#TOC35">6.8 md5</a> </h2>
+
+<p>MD5 output protocol.
+</p>
+<p>Computes the MD5 hash of the data to be written, and on close writes
+this to the designated output or stdout if none is specified. It can
+be used to test muxers without writing an actual file.
+</p>
+<p>Some examples follow.
+</p><table><tr><td>&nbsp;</td><td><pre class="example"># Write the MD5 hash of the encoded AVI file to the file output.avi.md5.
+avconv -i input.flv -f avi -y md5:output.avi.md5
+
+# Write the MD5 hash of the encoded AVI file to stdout.
+avconv -i input.flv -f avi -y md5:
+</pre></td></tr></table>
+
+<p>Note that some formats (typically MOV) require the output protocol to
+be seekable, so they will fail with the MD5 output protocol.
+</p>
+<a name="SEC36"></a>
+<h2 class="section"> <a href="#TOC36">6.9 pipe</a> </h2>
+
+<p>UNIX pipe access protocol.
+</p>
+<p>Allow to read and write from UNIX pipes.
+</p>
+<p>The accepted syntax is:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">pipe:[<var>number</var>]
+</pre></td></tr></table>
+
+<p><var>number</var> is the number corresponding to the file descriptor of the
+pipe (e.g. 0 for stdin, 1 for stdout, 2 for stderr).  If <var>number</var>
+is not specified, by default the stdout file descriptor will be used
+for writing, stdin for reading.
+</p>
+<p>For example to read from stdin with <code>avconv</code>:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">cat test.wav | avconv -i pipe:0
+# ...this is the same as...
+cat test.wav | avconv -i pipe:
+</pre></td></tr></table>
+
+<p>For writing to stdout with <code>avconv</code>:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">avconv -i test.wav -f avi pipe:1 | cat &gt; test.avi
+# ...this is the same as...
+avconv -i test.wav -f avi pipe: | cat &gt; test.avi
+</pre></td></tr></table>
+
+<p>Note that some formats (typically MOV), require the output protocol to
+be seekable, so they will fail with the pipe output protocol.
+</p>
+<a name="SEC37"></a>
+<h2 class="section"> <a href="#TOC37">6.10 rtmp</a> </h2>
+
+<p>Real-Time Messaging Protocol.
+</p>
+<p>The Real-Time Messaging Protocol (RTMP) is used for streaming multimedia
+content across a TCP/IP network.
+</p>
+<p>The required syntax is:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">rtmp://[<var>username</var>:<var>password</var>@]<var>server</var>[:<var>port</var>][/<var>app</var>][/<var>instance</var>][/<var>playpath</var>]
+</pre></td></tr></table>
+
+<p>The accepted parameters are:
+</p><dl compact="compact">
+<dt> &lsquo;<samp>username</samp>&rsquo;</dt>
+<dd><p>An optional username (mostly for publishing).
+</p>
+</dd>
+<dt> &lsquo;<samp>password</samp>&rsquo;</dt>
+<dd><p>An optional password (mostly for publishing).
+</p>
+</dd>
+<dt> &lsquo;<samp>server</samp>&rsquo;</dt>
+<dd><p>The address of the RTMP server.
+</p>
+</dd>
+<dt> &lsquo;<samp>port</samp>&rsquo;</dt>
+<dd><p>The number of the TCP port to use (by default is 1935).
+</p>
+</dd>
+<dt> &lsquo;<samp>app</samp>&rsquo;</dt>
+<dd><p>It is the name of the application to access. It usually corresponds to
+the path where the application is installed on the RTMP server
+(e.g. &lsquo;<tt>/ondemand/</tt>&rsquo;, &lsquo;<tt>/flash/live/</tt>&rsquo;, etc.). You can override
+the value parsed from the URI through the <code>rtmp_app</code> option, too.
+</p>
+</dd>
+<dt> &lsquo;<samp>playpath</samp>&rsquo;</dt>
+<dd><p>It is the path or name of the resource to play with reference to the
+application specified in <var>app</var>, may be prefixed by &quot;mp4:&quot;. You
+can override the value parsed from the URI through the <code>rtmp_playpath</code>
+option, too.
+</p>
+</dd>
+<dt> &lsquo;<samp>listen</samp>&rsquo;</dt>
+<dd><p>Act as a server, listening for an incoming connection.
+</p>
+</dd>
+<dt> &lsquo;<samp>timeout</samp>&rsquo;</dt>
+<dd><p>Maximum time to wait for the incoming connection. Implies listen.
+</p></dd>
+</dl>
+
+<p>Additionally, the following parameters can be set via command line options
+(or in code via <code>AVOption</code>s):
+</p><dl compact="compact">
+<dt> &lsquo;<samp>rtmp_app</samp>&rsquo;</dt>
+<dd><p>Name of application to connect on the RTMP server. This option
+overrides the parameter specified in the URI.
+</p>
+</dd>
+<dt> &lsquo;<samp>rtmp_buffer</samp>&rsquo;</dt>
+<dd><p>Set the client buffer time in milliseconds. The default is 3000.
+</p>
+</dd>
+<dt> &lsquo;<samp>rtmp_conn</samp>&rsquo;</dt>
+<dd><p>Extra arbitrary AMF connection parameters, parsed from a string,
+e.g. like <code>B:1 S:authMe O:1 NN:code:1.23 NS:flag:ok O:0</code>.
+Each value is prefixed by a single character denoting the type,
+B for Boolean, N for number, S for string, O for object, or Z for null,
+followed by a colon. For Booleans the data must be either 0 or 1 for
+FALSE or TRUE, respectively.  Likewise for Objects the data must be 0 or
+1 to end or begin an object, respectively. Data items in subobjects may
+be named, by prefixing the type with 'N' and specifying the name before
+the value (i.e. <code>NB:myFlag:1</code>). This option may be used multiple
+times to construct arbitrary AMF sequences.
+</p>
+</dd>
+<dt> &lsquo;<samp>rtmp_flashver</samp>&rsquo;</dt>
+<dd><p>Version of the Flash plugin used to run the SWF player. The default
+is LNX 9,0,124,2. (When publishing, the default is FMLE/3.0 (compatible;
+&lt;libavformat version&gt;).)
+</p>
+</dd>
+<dt> &lsquo;<samp>rtmp_flush_interval</samp>&rsquo;</dt>
+<dd><p>Number of packets flushed in the same request (RTMPT only). The default
+is 10.
+</p>
+</dd>
+<dt> &lsquo;<samp>rtmp_live</samp>&rsquo;</dt>
+<dd><p>Specify that the media is a live stream. No resuming or seeking in
+live streams is possible. The default value is <code>any</code>, which means the
+subscriber first tries to play the live stream specified in the
+playpath. If a live stream of that name is not found, it plays the
+recorded stream. The other possible values are <code>live</code> and
+<code>recorded</code>.
+</p>
+</dd>
+<dt> &lsquo;<samp>rtmp_pageurl</samp>&rsquo;</dt>
+<dd><p>URL of the web page in which the media was embedded. By default no
+value will be sent.
+</p>
+</dd>
+<dt> &lsquo;<samp>rtmp_playpath</samp>&rsquo;</dt>
+<dd><p>Stream identifier to play or to publish. This option overrides the
+parameter specified in the URI.
+</p>
+</dd>
+<dt> &lsquo;<samp>rtmp_subscribe</samp>&rsquo;</dt>
+<dd><p>Name of live stream to subscribe to. By default no value will be sent.
+It is only sent if the option is specified or if rtmp_live
+is set to live.
+</p>
+</dd>
+<dt> &lsquo;<samp>rtmp_swfhash</samp>&rsquo;</dt>
+<dd><p>SHA256 hash of the decompressed SWF file (32 bytes).
+</p>
+</dd>
+<dt> &lsquo;<samp>rtmp_swfsize</samp>&rsquo;</dt>
+<dd><p>Size of the decompressed SWF file, required for SWFVerification.
+</p>
+</dd>
+<dt> &lsquo;<samp>rtmp_swfurl</samp>&rsquo;</dt>
+<dd><p>URL of the SWF player for the media. By default no value will be sent.
+</p>
+</dd>
+<dt> &lsquo;<samp>rtmp_swfverify</samp>&rsquo;</dt>
+<dd><p>URL to player swf file, compute hash/size automatically.
+</p>
+</dd>
+<dt> &lsquo;<samp>rtmp_tcurl</samp>&rsquo;</dt>
+<dd><p>URL of the target stream. Defaults to proto://host[:port]/app.
+</p>
+</dd>
+</dl>
+
+<p>For example to read with <code>avplay</code> a multimedia resource named
+&quot;sample&quot; from the application &quot;vod&quot; from an RTMP server &quot;myserver&quot;:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">avplay rtmp://myserver/vod/sample
+</pre></td></tr></table>
+
+<p>To publish to a password protected server, passing the playpath and
+app names separately:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">avconv -re -i &lt;input&gt; -f flv -rtmp_playpath some/long/path -rtmp_app long/app/name rtmp://username:password@myserver/
+</pre></td></tr></table>
+
+<a name="SEC38"></a>
+<h2 class="section"> <a href="#TOC38">6.11 rtmpe</a> </h2>
+
+<p>Encrypted Real-Time Messaging Protocol.
+</p>
+<p>The Encrypted Real-Time Messaging Protocol (RTMPE) is used for
+streaming multimedia content within standard cryptographic primitives,
+consisting of Diffie-Hellman key exchange and HMACSHA256, generating
+a pair of RC4 keys.
+</p>
+<a name="SEC39"></a>
+<h2 class="section"> <a href="#TOC39">6.12 rtmps</a> </h2>
+
+<p>Real-Time Messaging Protocol over a secure SSL connection.
+</p>
+<p>The Real-Time Messaging Protocol (RTMPS) is used for streaming
+multimedia content across an encrypted connection.
+</p>
+<a name="SEC40"></a>
+<h2 class="section"> <a href="#TOC40">6.13 rtmpt</a> </h2>
+
+<p>Real-Time Messaging Protocol tunneled through HTTP.
+</p>
+<p>The Real-Time Messaging Protocol tunneled through HTTP (RTMPT) is used
+for streaming multimedia content within HTTP requests to traverse
+firewalls.
+</p>
+<a name="SEC41"></a>
+<h2 class="section"> <a href="#TOC41">6.14 rtmpte</a> </h2>
+
+<p>Encrypted Real-Time Messaging Protocol tunneled through HTTP.
+</p>
+<p>The Encrypted Real-Time Messaging Protocol tunneled through HTTP (RTMPTE)
+is used for streaming multimedia content within HTTP requests to traverse
+firewalls.
+</p>
+<a name="SEC42"></a>
+<h2 class="section"> <a href="#TOC42">6.15 rtmpts</a> </h2>
+
+<p>Real-Time Messaging Protocol tunneled through HTTPS.
+</p>
+<p>The Real-Time Messaging Protocol tunneled through HTTPS (RTMPTS) is used
+for streaming multimedia content within HTTPS requests to traverse
+firewalls.
+</p>
+<a name="SEC43"></a>
+<h2 class="section"> <a href="#TOC43">6.16 librtmp rtmp, rtmpe, rtmps, rtmpt, rtmpte</a> </h2>
+
+<p>Real-Time Messaging Protocol and its variants supported through
+librtmp.
+</p>
+<p>Requires the presence of the librtmp headers and library during
+configuration. You need to explicitly configure the build with
+&quot;&ndash;enable-librtmp&quot;. If enabled this will replace the native RTMP
+protocol.
+</p>
+<p>This protocol provides most client functions and a few server
+functions needed to support RTMP, RTMP tunneled in HTTP (RTMPT),
+encrypted RTMP (RTMPE), RTMP over SSL/TLS (RTMPS) and tunneled
+variants of these encrypted types (RTMPTE, RTMPTS).
+</p>
+<p>The required syntax is:
+</p><table><tr><td>&nbsp;</td><td><pre class="example"><var>rtmp_proto</var>://<var>server</var>[:<var>port</var>][/<var>app</var>][/<var>playpath</var>] <var>options</var>
+</pre></td></tr></table>
+
+<p>where <var>rtmp_proto</var> is one of the strings &quot;rtmp&quot;, &quot;rtmpt&quot;, &quot;rtmpe&quot;,
+&quot;rtmps&quot;, &quot;rtmpte&quot;, &quot;rtmpts&quot; corresponding to each RTMP variant, and
+<var>server</var>, <var>port</var>, <var>app</var> and <var>playpath</var> have the same
+meaning as specified for the RTMP native protocol.
+<var>options</var> contains a list of space-separated options of the form
+<var>key</var>=<var>val</var>.
+</p>
+<p>See the librtmp manual page (man 3 librtmp) for more information.
+</p>
+<p>For example, to stream a file in real-time to an RTMP server using
+<code>avconv</code>:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">avconv -re -i myfile -f flv rtmp://myserver/live/mystream
+</pre></td></tr></table>
+
+<p>To play the same stream using <code>avplay</code>:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">avplay &quot;rtmp://myserver/live/mystream live=1&quot;
+</pre></td></tr></table>
+
+<a name="SEC44"></a>
+<h2 class="section"> <a href="#TOC44">6.17 rtp</a> </h2>
+
+<p>Real-Time Protocol.
+</p>
+<a name="SEC45"></a>
+<h2 class="section"> <a href="#TOC45">6.18 rtsp</a> </h2>
+
+<p>RTSP is not technically a protocol handler in libavformat, it is a demuxer
+and muxer. The demuxer supports both normal RTSP (with data transferred
+over RTP; this is used by e.g. Apple and Microsoft) and Real-RTSP (with
+data transferred over RDT).
+</p>
+<p>The muxer can be used to send a stream using RTSP ANNOUNCE to a server
+supporting it (currently Darwin Streaming Server and Mischa Spiegelmock's
+<a href="http://github.com/revmischa/rtsp-server">RTSP server</a>).
+</p>
+<p>The required syntax for a RTSP url is:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">rtsp://<var>hostname</var>[:<var>port</var>]/<var>path</var>
+</pre></td></tr></table>
+
+<p>The following options (set on the <code>avconv</code>/<code>avplay</code> command
+line, or set in code via <code>AVOption</code>s or in <code>avformat_open_input</code>),
+are supported:
+</p>
+<p>Flags for <code>rtsp_transport</code>:
+</p>
+<dl compact="compact">
+<dt> &lsquo;<samp>udp</samp>&rsquo;</dt>
+<dd><p>Use UDP as lower transport protocol.
+</p>
+</dd>
+<dt> &lsquo;<samp>tcp</samp>&rsquo;</dt>
+<dd><p>Use TCP (interleaving within the RTSP control channel) as lower
+transport protocol.
+</p>
+</dd>
+<dt> &lsquo;<samp>udp_multicast</samp>&rsquo;</dt>
+<dd><p>Use UDP multicast as lower transport protocol.
+</p>
+</dd>
+<dt> &lsquo;<samp>http</samp>&rsquo;</dt>
+<dd><p>Use HTTP tunneling as lower transport protocol, which is useful for
+passing proxies.
+</p></dd>
+</dl>
+
+<p>Multiple lower transport protocols may be specified, in that case they are
+tried one at a time (if the setup of one fails, the next one is tried).
+For the muxer, only the <code>tcp</code> and <code>udp</code> options are supported.
+</p>
+<p>Flags for <code>rtsp_flags</code>:
+</p>
+<dl compact="compact">
+<dt> &lsquo;<samp>filter_src</samp>&rsquo;</dt>
+<dd><p>Accept packets only from negotiated peer address and port.
+</p></dd>
+<dt> &lsquo;<samp>listen</samp>&rsquo;</dt>
+<dd><p>Act as a server, listening for an incoming connection.
+</p></dd>
+</dl>
+
+<p>When receiving data over UDP, the demuxer tries to reorder received packets
+(since they may arrive out of order, or packets may get lost totally). This
+can be disabled by setting the maximum demuxing delay to zero (via
+the <code>max_delay</code> field of AVFormatContext).
+</p>
+<p>When watching multi-bitrate Real-RTSP streams with <code>avplay</code>, the
+streams to display can be chosen with <code>-vst</code> <var>n</var> and
+<code>-ast</code> <var>n</var> for video and audio respectively, and can be switched
+on the fly by pressing <code>v</code> and <code>a</code>.
+</p>
+<p>Example command lines:
+</p>
+<p>To watch a stream over UDP, with a max reordering delay of 0.5 seconds:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">avplay -max_delay 500000 -rtsp_transport udp rtsp://server/video.mp4
+</pre></td></tr></table>
+
+<p>To watch a stream tunneled over HTTP:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">avplay -rtsp_transport http rtsp://server/video.mp4
+</pre></td></tr></table>
+
+<p>To send a stream in realtime to a RTSP server, for others to watch:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">avconv -re -i <var>input</var> -f rtsp -muxdelay 0.1 rtsp://server/live.sdp
+</pre></td></tr></table>
+
+<p>To receive a stream in realtime:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">avconv -rtsp_flags listen -i rtsp://ownaddress/live.sdp <var>output</var>
+</pre></td></tr></table>
+
+<a name="SEC46"></a>
+<h2 class="section"> <a href="#TOC46">6.19 sap</a> </h2>
+
+<p>Session Announcement Protocol (RFC 2974). This is not technically a
+protocol handler in libavformat, it is a muxer and demuxer.
+It is used for signalling of RTP streams, by announcing the SDP for the
+streams regularly on a separate port.
+</p>
+<a name="SEC47"></a>
+<h3 class="subsection"> <a href="#TOC47">6.19.1 Muxer</a> </h3>
+
+<p>The syntax for a SAP url given to the muxer is:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">sap://<var>destination</var>[:<var>port</var>][?<var>options</var>]
+</pre></td></tr></table>
+
+<p>The RTP packets are sent to <var>destination</var> on port <var>port</var>,
+or to port 5004 if no port is specified.
+<var>options</var> is a <code>&amp;</code>-separated list. The following options
+are supported:
+</p>
+<dl compact="compact">
+<dt> &lsquo;<samp>announce_addr=<var>address</var></samp>&rsquo;</dt>
+<dd><p>Specify the destination IP address for sending the announcements to.
+If omitted, the announcements are sent to the commonly used SAP
+announcement multicast address 224.2.127.254 (sap.mcast.net), or
+ff0e::2:7ffe if <var>destination</var> is an IPv6 address.
+</p>
+</dd>
+<dt> &lsquo;<samp>announce_port=<var>port</var></samp>&rsquo;</dt>
+<dd><p>Specify the port to send the announcements on, defaults to
+9875 if not specified.
+</p>
+</dd>
+<dt> &lsquo;<samp>ttl=<var>ttl</var></samp>&rsquo;</dt>
+<dd><p>Specify the time to live value for the announcements and RTP packets,
+defaults to 255.
+</p>
+</dd>
+<dt> &lsquo;<samp>same_port=<var>0|1</var></samp>&rsquo;</dt>
+<dd><p>If set to 1, send all RTP streams on the same port pair. If zero (the
+default), all streams are sent on unique ports, with each stream on a
+port 2 numbers higher than the previous.
+VLC/Live555 requires this to be set to 1, to be able to receive the stream.
+The RTP stack in libavformat for receiving requires all streams to be sent
+on unique ports.
+</p></dd>
+</dl>
+
+<p>Example command lines follow.
+</p>
+<p>To broadcast a stream on the local subnet, for watching in VLC:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">avconv -re -i <var>input</var> -f sap sap://224.0.0.255?same_port=1
+</pre></td></tr></table>
+
+<p>Similarly, for watching in avplay:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">avconv -re -i <var>input</var> -f sap sap://224.0.0.255
+</pre></td></tr></table>
+
+<p>And for watching in avplay, over IPv6:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">avconv -re -i <var>input</var> -f sap sap://[ff0e::1:2:3:4]
+</pre></td></tr></table>
+
+<a name="SEC48"></a>
+<h3 class="subsection"> <a href="#TOC48">6.19.2 Demuxer</a> </h3>
+
+<p>The syntax for a SAP url given to the demuxer is:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">sap://[<var>address</var>][:<var>port</var>]
+</pre></td></tr></table>
+
+<p><var>address</var> is the multicast address to listen for announcements on,
+if omitted, the default 224.2.127.254 (sap.mcast.net) is used. <var>port</var>
+is the port that is listened on, 9875 if omitted.
+</p>
+<p>The demuxers listens for announcements on the given address and port.
+Once an announcement is received, it tries to receive that particular stream.
+</p>
+<p>Example command lines follow.
+</p>
+<p>To play back the first stream announced on the normal SAP multicast address:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">avplay sap://
+</pre></td></tr></table>
+
+<p>To play back the first stream announced on one the default IPv6 SAP multicast address:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">avplay sap://[ff0e::2:7ffe]
+</pre></td></tr></table>
+
+<a name="SEC49"></a>
+<h2 class="section"> <a href="#TOC49">6.20 tcp</a> </h2>
+
+<p>Trasmission Control Protocol.
+</p>
+<p>The required syntax for a TCP url is:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">tcp://<var>hostname</var>:<var>port</var>[?<var>options</var>]
+</pre></td></tr></table>
+
+<dl compact="compact">
+<dt> &lsquo;<samp>listen</samp>&rsquo;</dt>
+<dd><p>Listen for an incoming connection
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">avconv -i <var>input</var> -f <var>format</var> tcp://<var>hostname</var>:<var>port</var>?listen
+avplay tcp://<var>hostname</var>:<var>port</var>
+</pre></td></tr></table>
+
+</dd>
+</dl>
+
+<a name="SEC50"></a>
+<h2 class="section"> <a href="#TOC50">6.21 tls</a> </h2>
+
+<p>Transport Layer Security (TLS) / Secure Sockets Layer (SSL)
+</p>
+<p>The required syntax for a TLS url is:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">tls://<var>hostname</var>:<var>port</var>
+</pre></td></tr></table>
+
+<p>The following parameters can be set via command line options
+(or in code via <code>AVOption</code>s):
+</p>
+<dl compact="compact">
+<dt> &lsquo;<samp>ca_file</samp>&rsquo;</dt>
+<dd><p>A file containing certificate authority (CA) root certificates to treat
+as trusted. If the linked TLS library contains a default this might not
+need to be specified for verification to work, but not all libraries and
+setups have defaults built in.
+</p>
+</dd>
+<dt> &lsquo;<samp>tls_verify=<var>1|0</var></samp>&rsquo;</dt>
+<dd><p>If enabled, try to verify the peer that we are communicating with.
+Note, if using OpenSSL, this currently only makes sure that the
+peer certificate is signed by one of the root certificates in the CA
+database, but it does not validate that the certificate actually
+matches the host name we are trying to connect to. (With GnuTLS,
+the host name is validated as well.)
+</p>
+<p>This is disabled by default since it requires a CA database to be
+provided by the caller in many cases.
+</p>
+</dd>
+<dt> &lsquo;<samp>cert_file</samp>&rsquo;</dt>
+<dd><p>A file containing a certificate to use in the handshake with the peer.
+(When operating as server, in listen mode, this is more often required
+by the peer, while client certificates only are mandated in certain
+setups.)
+</p>
+</dd>
+<dt> &lsquo;<samp>key_file</samp>&rsquo;</dt>
+<dd><p>A file containing the private key for the certificate.
+</p>
+</dd>
+<dt> &lsquo;<samp>listen=<var>1|0</var></samp>&rsquo;</dt>
+<dd><p>If enabled, listen for connections on the provided port, and assume
+the server role in the handshake instead of the client role.
+</p>
+</dd>
+</dl>
+
+<a name="SEC51"></a>
+<h2 class="section"> <a href="#TOC51">6.22 udp</a> </h2>
+
+<p>User Datagram Protocol.
+</p>
+<p>The required syntax for a UDP url is:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">udp://<var>hostname</var>:<var>port</var>[?<var>options</var>]
+</pre></td></tr></table>
+
+<p><var>options</var> contains a list of &amp;-separated options of the form <var>key</var>=<var>val</var>.
+Follow the list of supported options.
+</p>
+<dl compact="compact">
+<dt> &lsquo;<samp>buffer_size=<var>size</var></samp>&rsquo;</dt>
+<dd><p>set the UDP buffer size in bytes
+</p>
+</dd>
+<dt> &lsquo;<samp>localport=<var>port</var></samp>&rsquo;</dt>
+<dd><p>override the local UDP port to bind with
+</p>
+</dd>
+<dt> &lsquo;<samp>localaddr=<var>addr</var></samp>&rsquo;</dt>
+<dd><p>Choose the local IP address. This is useful e.g. if sending multicast
+and the host has multiple interfaces, where the user can choose
+which interface to send on by specifying the IP address of that interface.
+</p>
+</dd>
+<dt> &lsquo;<samp>pkt_size=<var>size</var></samp>&rsquo;</dt>
+<dd><p>set the size in bytes of UDP packets
+</p>
+</dd>
+<dt> &lsquo;<samp>reuse=<var>1|0</var></samp>&rsquo;</dt>
+<dd><p>explicitly allow or disallow reusing UDP sockets
+</p>
+</dd>
+<dt> &lsquo;<samp>ttl=<var>ttl</var></samp>&rsquo;</dt>
+<dd><p>set the time to live value (for multicast only)
+</p>
+</dd>
+<dt> &lsquo;<samp>connect=<var>1|0</var></samp>&rsquo;</dt>
+<dd><p>Initialize the UDP socket with <code>connect()</code>. In this case, the
+destination address can't be changed with ff_udp_set_remote_url later.
+If the destination address isn't known at the start, this option can
+be specified in ff_udp_set_remote_url, too.
+This allows finding out the source address for the packets with getsockname,
+and makes writes return with AVERROR(ECONNREFUSED) if &quot;destination
+unreachable&quot; is received.
+For receiving, this gives the benefit of only receiving packets from
+the specified peer address/port.
+</p>
+</dd>
+<dt> &lsquo;<samp>sources=<var>address</var>[,<var>address</var>]</samp>&rsquo;</dt>
+<dd><p>Only receive packets sent to the multicast group from one of the
+specified sender IP addresses.
+</p>
+</dd>
+<dt> &lsquo;<samp>block=<var>address</var>[,<var>address</var>]</samp>&rsquo;</dt>
+<dd><p>Ignore packets sent to the multicast group from the specified
+sender IP addresses.
+</p></dd>
+</dl>
+
+<p>Some usage examples of the udp protocol with <code>avconv</code> follow.
+</p>
+<p>To stream over UDP to a remote endpoint:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">avconv -i <var>input</var> -f <var>format</var> udp://<var>hostname</var>:<var>port</var>
+</pre></td></tr></table>
+
+<p>To stream in mpegts format over UDP using 188 sized UDP packets, using a large input buffer:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">avconv -i <var>input</var> -f mpegts udp://<var>hostname</var>:<var>port</var>?pkt_size=188&amp;buffer_size=65535
+</pre></td></tr></table>
+
+<p>To receive over UDP from a remote endpoint:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">avconv -i udp://[<var>multicast-address</var>]:<var>port</var>
+</pre></td></tr></table>
+
+<a name="SEC52"></a>
+<h2 class="section"> <a href="#TOC52">6.23 unix</a> </h2>
+
+<p>Unix local socket
+</p>
+<p>The required syntax for a Unix socket URL is:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">unix://<var>filepath</var>
+</pre></td></tr></table>
+
+<p>The following parameters can be set via command line options
+(or in code via <code>AVOption</code>s):
+</p>
+<dl compact="compact">
+<dt> &lsquo;<samp>timeout</samp>&rsquo;</dt>
+<dd><p>Timeout in ms.
+</p></dd>
+<dt> &lsquo;<samp>listen</samp>&rsquo;</dt>
+<dd><p>Create the Unix socket in listening mode.
+</p></dd>
+</dl>
+
+<a name="SEC53"></a>
+<h1 class="chapter"> <a href="#TOC53">7. Input Devices</a> </h1>
+
+<p>Input devices are configured elements in Libav which allow to access
+the data coming from a multimedia device attached to your system.
+</p>
+<p>When you configure your Libav build, all the supported input devices
+are enabled by default. You can list all available ones using the
+configure option &quot;&ndash;list-indevs&quot;.
+</p>
+<p>You can disable all the input devices using the configure option
+&quot;&ndash;disable-indevs&quot;, and selectively enable an input device using the
+option &quot;&ndash;enable-indev=<var>INDEV</var>&quot;, or you can disable a particular
+input device using the option &quot;&ndash;disable-indev=<var>INDEV</var>&quot;.
+</p>
+<p>The option &quot;-formats&quot; of the av* tools will display the list of
+supported input devices (amongst the demuxers).
+</p>
+<p>A description of the currently available input devices follows.
+</p>
+<a name="SEC54"></a>
+<h2 class="section"> <a href="#TOC54">7.1 alsa</a> </h2>
+
+<p>ALSA (Advanced Linux Sound Architecture) input device.
+</p>
+<p>To enable this input device during configuration you need libasound
+installed on your system.
+</p>
+<p>This device allows capturing from an ALSA device. The name of the
+device to capture has to be an ALSA card identifier.
+</p>
+<p>An ALSA identifier has the syntax:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">hw:<var>CARD</var>[,<var>DEV</var>[,<var>SUBDEV</var>]]
+</pre></td></tr></table>
+
+<p>where the <var>DEV</var> and <var>SUBDEV</var> components are optional.
+</p>
+<p>The three arguments (in order: <var>CARD</var>,<var>DEV</var>,<var>SUBDEV</var>)
+specify card number or identifier, device number and subdevice number
+(-1 means any).
+</p>
+<p>To see the list of cards currently recognized by your system check the
+files &lsquo;<tt>/proc/asound/cards</tt>&rsquo; and &lsquo;<tt>/proc/asound/devices</tt>&rsquo;.
+</p>
+<p>For example to capture with <code>avconv</code> from an ALSA device with
+card id 0, you may run the command:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">avconv -f alsa -i hw:0 alsaout.wav
+</pre></td></tr></table>
+
+<p>For more information see:
+<a href="http://www.alsa-project.org/alsa-doc/alsa-lib/pcm.html">http://www.alsa-project.org/alsa-doc/alsa-lib/pcm.html</a>
+</p>
+<a name="SEC55"></a>
+<h2 class="section"> <a href="#TOC55">7.2 bktr</a> </h2>
+
+<p>BSD video input device.
+</p>
+<a name="SEC56"></a>
+<h2 class="section"> <a href="#TOC56">7.3 dv1394</a> </h2>
+
+<p>Linux DV 1394 input device.
+</p>
+<a name="SEC57"></a>
+<h2 class="section"> <a href="#TOC57">7.4 fbdev</a> </h2>
+
+<p>Linux framebuffer input device.
+</p>
+<p>The Linux framebuffer is a graphic hardware-independent abstraction
+layer to show graphics on a computer monitor, typically on the
+console. It is accessed through a file device node, usually
+&lsquo;<tt>/dev/fb0</tt>&rsquo;.
+</p>
+<p>For more detailed information read the file
+Documentation/fb/framebuffer.txt included in the Linux source tree.
+</p>
+<p>To record from the framebuffer device &lsquo;<tt>/dev/fb0</tt>&rsquo; with
+<code>avconv</code>:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">avconv -f fbdev -r 10 -i /dev/fb0 out.avi
+</pre></td></tr></table>
+
+<p>You can take a single screenshot image with the command:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">avconv -f fbdev -frames:v 1 -r 1 -i /dev/fb0 screenshot.jpeg
+</pre></td></tr></table>
+
+<p>See also <a href="http://linux-fbdev.sourceforge.net/">http://linux-fbdev.sourceforge.net/</a>, and fbset(1).
+</p>
+<a name="SEC58"></a>
+<h2 class="section"> <a href="#TOC58">7.5 jack</a> </h2>
+
+<p>JACK input device.
+</p>
+<p>To enable this input device during configuration you need libjack
+installed on your system.
+</p>
+<p>A JACK input device creates one or more JACK writable clients, one for
+each audio channel, with name <var>client_name</var>:input_<var>N</var>, where
+<var>client_name</var> is the name provided by the application, and <var>N</var>
+is a number which identifies the channel.
+Each writable client will send the acquired data to the Libav input
+device.
+</p>
+<p>Once you have created one or more JACK readable clients, you need to
+connect them to one or more JACK writable clients.
+</p>
+<p>To connect or disconnect JACK clients you can use the
+&lsquo;<tt>jack_connect</tt>&rsquo; and &lsquo;<tt>jack_disconnect</tt>&rsquo; programs, or do it
+through a graphical interface, for example with &lsquo;<tt>qjackctl</tt>&rsquo;.
+</p>
+<p>To list the JACK clients and their properties you can invoke the command
+&lsquo;<tt>jack_lsp</tt>&rsquo;.
+</p>
+<p>Follows an example which shows how to capture a JACK readable client
+with <code>avconv</code>.
+</p><table><tr><td>&nbsp;</td><td><pre class="example"># Create a JACK writable client with name &quot;libav&quot;.
+$ avconv -f jack -i libav -y out.wav
+
+# Start the sample jack_metro readable client.
+$ jack_metro -b 120 -d 0.2 -f 4000
+
+# List the current JACK clients.
+$ jack_lsp -c
+system:capture_1
+system:capture_2
+system:playback_1
+system:playback_2
+libav:input_1
+metro:120_bpm
+
+# Connect metro to the avconv writable client.
+$ jack_connect metro:120_bpm libav:input_1
+</pre></td></tr></table>
+
+<p>For more information read:
+<a href="http://jackaudio.org/">http://jackaudio.org/</a>
+</p>
+<a name="SEC59"></a>
+<h2 class="section"> <a href="#TOC59">7.6 libdc1394</a> </h2>
+
+<p>IIDC1394 input device, based on libdc1394 and libraw1394.
+</p>
+<a name="SEC60"></a>
+<h2 class="section"> <a href="#TOC60">7.7 oss</a> </h2>
+
+<p>Open Sound System input device.
+</p>
+<p>The filename to provide to the input device is the device node
+representing the OSS input device, and is usually set to
+&lsquo;<tt>/dev/dsp</tt>&rsquo;.
+</p>
+<p>For example to grab from &lsquo;<tt>/dev/dsp</tt>&rsquo; using <code>avconv</code> use the
+command:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">avconv -f oss -i /dev/dsp /tmp/oss.wav
+</pre></td></tr></table>
+
+<p>For more information about OSS see:
+<a href="http://manuals.opensound.com/usersguide/dsp.html">http://manuals.opensound.com/usersguide/dsp.html</a>
+</p>
+<a name="SEC61"></a>
+<h2 class="section"> <a href="#TOC61">7.8 pulse</a> </h2>
+
+<p>pulseaudio input device.
+</p>
+<p>To enable this input device during configuration you need libpulse-simple
+installed in your system.
+</p>
+<p>The filename to provide to the input device is a source device or the
+string &quot;default&quot;
+</p>
+<p>To list the pulse source devices and their properties you can invoke
+the command &lsquo;<tt>pactl list sources</tt>&rsquo;.
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">avconv -f pulse -i default /tmp/pulse.wav
+</pre></td></tr></table>
+
+<a name="SEC62"></a>
+<h3 class="subsection"> <a href="#TOC62">7.8.1 <var>server</var> AVOption</a> </h3>
+
+<p>The syntax is:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">-server <var>server name</var>
+</pre></td></tr></table>
+
+<p>Connects to a specific server.
+</p>
+<a name="SEC63"></a>
+<h3 class="subsection"> <a href="#TOC63">7.8.2 <var>name</var> AVOption</a> </h3>
+
+<p>The syntax is:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">-name <var>application name</var>
+</pre></td></tr></table>
+
+<p>Specify the application name pulse will use when showing active clients,
+by default it is &quot;libav&quot;
+</p>
+<a name="SEC64"></a>
+<h3 class="subsection"> <a href="#TOC64">7.8.3 <var>stream_name</var> AVOption</a> </h3>
+
+<p>The syntax is:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">-stream_name <var>stream name</var>
+</pre></td></tr></table>
+
+<p>Specify the stream name pulse will use when showing active streams,
+by default it is &quot;record&quot;
+</p>
+<a name="SEC65"></a>
+<h3 class="subsection"> <a href="#TOC65">7.8.4 <var>sample_rate</var> AVOption</a> </h3>
+
+<p>The syntax is:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">-sample_rate <var>samplerate</var>
+</pre></td></tr></table>
+
+<p>Specify the samplerate in Hz, by default 48kHz is used.
+</p>
+<a name="SEC66"></a>
+<h3 class="subsection"> <a href="#TOC66">7.8.5 <var>channels</var> AVOption</a> </h3>
+
+<p>The syntax is:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">-channels <var>N</var>
+</pre></td></tr></table>
+
+<p>Specify the channels in use, by default 2 (stereo) is set.
+</p>
+<a name="SEC67"></a>
+<h3 class="subsection"> <a href="#TOC67">7.8.6 <var>frame_size</var> AVOption</a> </h3>
+
+<p>The syntax is:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">-frame_size <var>bytes</var>
+</pre></td></tr></table>
+
+<p>Specify the number of byte per frame, by default it is set to 1024.
+</p>
+<a name="SEC68"></a>
+<h3 class="subsection"> <a href="#TOC68">7.8.7 <var>fragment_size</var> AVOption</a> </h3>
+
+<p>The syntax is:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">-fragment_size <var>bytes</var>
+</pre></td></tr></table>
+
+<p>Specify the minimal buffering fragment in pulseaudio, it will affect the
+audio latency. By default it is unset.
+</p>
+<a name="SEC69"></a>
+<h2 class="section"> <a href="#TOC69">7.9 sndio</a> </h2>
+
+<p>sndio input device.
+</p>
+<p>To enable this input device during configuration you need libsndio
+installed on your system.
+</p>
+<p>The filename to provide to the input device is the device node
+representing the sndio input device, and is usually set to
+&lsquo;<tt>/dev/audio0</tt>&rsquo;.
+</p>
+<p>For example to grab from &lsquo;<tt>/dev/audio0</tt>&rsquo; using <code>avconv</code> use the
+command:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">avconv -f sndio -i /dev/audio0 /tmp/oss.wav
+</pre></td></tr></table>
+
+<a name="SEC70"></a>
+<h2 class="section"> <a href="#TOC70">7.10 video4linux2</a> </h2>
+
+<p>Video4Linux2 input video device.
+</p>
+<p>The name of the device to grab is a file device node, usually Linux
+systems tend to automatically create such nodes when the device
+(e.g. an USB webcam) is plugged into the system, and has a name of the
+kind &lsquo;<tt>/dev/video<var>N</var></tt>&rsquo;, where <var>N</var> is a number associated to
+the device.
+</p>
+<p>Video4Linux2 devices usually support a limited set of
+<var>width</var>x<var>height</var> sizes and framerates. You can check which are
+supported using <code>-list_formats all</code> for Video4Linux2 devices.
+</p>
+<p>Some usage examples of the video4linux2 devices with avconv and avplay:
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example"># Grab and show the input of a video4linux2 device.
+avplay -f video4linux2 -framerate 30 -video_size hd720 /dev/video0
+
+# Grab and record the input of a video4linux2 device, leave the
+framerate and size as previously set.
+avconv -f video4linux2 -input_format mjpeg -i /dev/video0 out.mpeg
+</pre></td></tr></table>
+
+<a name="SEC71"></a>
+<h2 class="section"> <a href="#TOC71">7.11 vfwcap</a> </h2>
+
+<p>VfW (Video for Windows) capture input device.
+</p>
+<p>The filename passed as input is the capture driver number, ranging from
+0 to 9. You may use &quot;list&quot; as filename to print a list of drivers. Any
+other filename will be interpreted as device number 0.
+</p>
+<a name="SEC72"></a>
+<h2 class="section"> <a href="#TOC72">7.12 x11grab</a> </h2>
+
+<p>X11 video input device.
+</p>
+<p>This device allows to capture a region of an X11 display.
+</p>
+<p>The filename passed as input has the syntax:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">[<var>hostname</var>]:<var>display_number</var>.<var>screen_number</var>[+<var>x_offset</var>,<var>y_offset</var>]
+</pre></td></tr></table>
+
+<p><var>hostname</var>:<var>display_number</var>.<var>screen_number</var> specifies the
+X11 display name of the screen to grab from. <var>hostname</var> can be
+omitted, and defaults to &quot;localhost&quot;. The environment variable
+<code>DISPLAY</code> contains the default display name.
+</p>
+<p><var>x_offset</var> and <var>y_offset</var> specify the offsets of the grabbed
+area with respect to the top-left border of the X11 screen. They
+default to 0.
+</p>
+<p>Check the X11 documentation (e.g. man X) for more detailed information.
+</p>
+<p>Use the &lsquo;<tt>dpyinfo</tt>&rsquo; program for getting basic information about the
+properties of your X11 display (e.g. grep for &quot;name&quot; or &quot;dimensions&quot;).
+</p>
+<p>For example to grab from &lsquo;<tt>:0.0</tt>&rsquo; using <code>avconv</code>:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">avconv -f x11grab -r 25 -s cif -i :0.0 out.mpg
+
+# Grab at position 10,20.
+avconv -f x11grab -r 25 -s cif -i :0.0+10,20 out.mpg
+</pre></td></tr></table>
+
+<a name="SEC73"></a>
+<h3 class="subsection"> <a href="#TOC73">7.12.1 <var>follow_mouse</var> AVOption</a> </h3>
+
+<p>The syntax is:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">-follow_mouse centered|<var>PIXELS</var>
+</pre></td></tr></table>
+
+<p>When it is specified with &quot;centered&quot;, the grabbing region follows the mouse
+pointer and keeps the pointer at the center of region; otherwise, the region
+follows only when the mouse pointer reaches within <var>PIXELS</var> (greater than
+zero) to the edge of region.
+</p>
+<p>For example:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">avconv -f x11grab -follow_mouse centered -r 25 -s cif -i :0.0 out.mpg
+
+# Follows only when the mouse pointer reaches within 100 pixels to edge
+avconv -f x11grab -follow_mouse 100 -r 25 -s cif -i :0.0 out.mpg
+</pre></td></tr></table>
+
+<a name="SEC74"></a>
+<h3 class="subsection"> <a href="#TOC74">7.12.2 <var>show_region</var> AVOption</a> </h3>
+
+<p>The syntax is:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">-show_region 1
+</pre></td></tr></table>
+
+<p>If <var>show_region</var> AVOption is specified with <var>1</var>, then the grabbing
+region will be indicated on screen. With this option, it's easy to know what is
+being grabbed if only a portion of the screen is grabbed.
+</p>
+<p>For example:
+</p><table><tr><td>&nbsp;</td><td><pre class="example">avconv -f x11grab -show_region 1 -r 25 -s cif -i :0.0+10,20 out.mpg
+
+# With follow_mouse
+avconv -f x11grab -follow_mouse centered -show_region 1  -r 25 -s cif -i :0.0 out.mpg
+</pre></td></tr></table>
+
+
+
+<footer class="footer pagination-right">
+<span class="label label-info">This document was generated on <i>May, 10 2014</i> using <a href="http://www.nongnu.org/texi2html/"><i>texi2html 1.78</i></a>.</span></footer></div>

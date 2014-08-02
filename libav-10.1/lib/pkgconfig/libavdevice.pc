@@ -1,0 +1,14 @@
+prefix=/usr
+exec_prefix=${prefix}
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Name: libavdevice
+Description: Libav device handling library
+Version: 54.0.0
+Requires: 
+Requires.private: libavformat = 55.12.0
+Conflicts:
+Libs: -L${libdir} -lavdevice 
+Libs.private: -lavicap32 -lws2_32 -lx264 -lvpx -lvpx -lvorbisenc -lvorbis -logg -lvo-aacenc -L/usr/i686-w64-mingw32/usr/lib -lrtmp -lz -lpolarssl -lws2_32 -lwinmm -L/usr/i686-w64-mingw32/usr/lib -lopus -lmp3lame -lm -lz -lpsapi -ladvapi32 -lshell32
+Cflags: -I${includedir}

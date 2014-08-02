@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+<!-- Created on May, 10 2014 by texi2html 1.78 -->
+<!--
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+
+-->
+<head>
+<title>Libav documentation : FATE Automated Testing Environment: </title>
+
+<meta name="description" content="FATE Automated Testing Environment: ">
+<meta name="keywords" content="Libav documentation : FATE Automated Testing Environment: ">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.78">
+
+<style type="text/css">
+<!--
+.container {
+  margin-right: auto;
+  margin-left: auto;
+  width: 1070px;
+}
+body {
+  font-size: 14px;
+  line-height: 20px;
+  color: #333333;
+  background-color: #ffffff;
+}
+a {
+  color: #0088cc;
+  text-decoration: none;
+}
+a:hover {
+  color: #005580;
+  text-decoration: underline;
+}
+p {
+  margin: 0 0 10px;
+}
+h2,
+h3,
+h4 {
+  margin: 10px 0;
+  font-family: inherit;
+  font-weight: bold;
+  line-height: 1;
+  border-color: #D6E9C6;
+  color: #468847;
+  border-style: solid;
+  border-width: 0 0 1px;
+  padding-left: 0.5em;
+}
+
+h1 a,
+h2 a,
+h3 a,
+h4 a {
+  color: inherit;
+}
+h1 {
+  font-size: 30px;
+  line-height: 40px;
+}
+h2 {
+  font-size: 20px;
+  line-height: 40px;
+}
+h3 {
+  font-size: 18px;
+  line-height: 40px;
+}
+code,
+pre {
+  padding: 0 3px 2px;
+  font-family: monospace;
+  font-size: 12px;
+  color: #333333;
+  border-radius: 3px;
+}
+pre {
+  display: block;
+  padding: 9.5px;
+  margin: 0 0 10px;
+  font-size: 13px;
+  line-height: 20px;
+  word-break: break-all;
+  word-wrap: break-word;
+  white-space: pre;
+  white-space: pre-wrap;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+code {
+  padding: 2px 4px;
+  color: #d14;
+  background-color: #f7f7f9;
+  border: 1px solid #e1e1e8;
+}
+pre code {
+  padding: 0;
+  color: inherit;
+  background-color: transparent;
+  border: 0;
+}
+.alert {
+  padding: 8px 35px 8px 14px;
+  margin-bottom: 20px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  background-color: #fcf8e3;
+  border: 1px solid #fbeed5;
+  border-radius: 4px;
+  color: #c09853;
+}
+
+.alert-danger,
+.alert-error {
+  background-color: #f2dede;
+  border-color: #eed3d7;
+  color: #b94a48;
+}
+.alert-info {
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  color: #3a87ad;
+}
+
+ul.toc {
+  list-style-type: none;
+}
+-->
+</style>
+
+<link rel="icon" href="favicon.png" type="image/png" />
+</head>
+<body>
+<div class="container">
+
+<h1 class="settitle">FATE Automated Testing Environment
+</h1>
+
+<a name="SEC_Contents"></a>
+<h1>Table of Contents</h1>
+<div class="contents">
+
+<ul class="toc">
+  <li><a name="TOC1" href="#SEC1">1. Introduction</a></li>
+  <li><a name="TOC2" href="#SEC2">2. Running FATE</a>
+  <ul class="toc">
+    <li><a name="TOC3" href="#SEC3">2.1 Samples and References</a></li>
+  </ul></li>
+  <li><a name="TOC4" href="#SEC4">3. Manual Run</a>
+  <ul class="toc">
+    <li><a name="TOC5" href="#SEC5">3.1 FATE Makefile targets</a></li>
+    <li><a name="TOC6" href="#SEC6">3.2 FATE Makefile variables</a></li>
+  </ul></li>
+  <li><a name="TOC7" href="#SEC7">4. Automated Tests</a>
+  <ul class="toc">
+    <li><a name="TOC8" href="#SEC8">4.1 Testing Profiles</a></li>
+    <li><a name="TOC9" href="#SEC9">4.2 Special Instances</a></li>
+    <li><a name="TOC10" href="#SEC10">4.3 Submitting Reports</a></li>
+  </ul>
+</li>
+</ul>
+</div>
+
+
+<a name="SEC1"></a>
+<h1 class="chapter"> <a href="#TOC1">1. Introduction</a> </h1>
+
+<p>FATE provides a regression testsuite embedded within the Libav build system.
+It can be run locally and optionally configured to send reports to a web
+aggregator and viewer <a href="http://fate.libav.org">http://fate.libav.org</a>.
+</p>
+<p>It is advised to run FATE before submitting patches to the current codebase
+and provide new tests when submitting patches to add additional features.
+</p>
+<a name="SEC2"></a>
+<h1 class="chapter"> <a href="#TOC2">2. Running FATE</a> </h1>
+
+<a name="SEC3"></a>
+<h2 class="section"> <a href="#TOC3">2.1 Samples and References</a> </h2>
+<p>In order to run, FATE needs a large amount of data (samples and references)
+that is provided separately from the actual source distribution.
+</p>
+<p>To inform the build system about the testsuite location, pass
+&lsquo;<samp>--samples=&lt;path to the samples&gt;</samp>&rsquo; to <code>configure</code> or set the
+<var>SAMPLES</var> Make variable or the <var>LIBAV_SAMPLES</var> environment variable
+to a suitable value.
+</p>
+<p>To use a custom wrapper to run the test, pass &lsquo;<samp>--target-exec</samp>&rsquo; to
+<code>configure</code> or set the <var>TARGET_EXEC</var> Make variable.
+</p>
+<p>The dataset is available through <code>rsync</code>, is possible to fetch
+the current sample using the straight rsync command or through a specific
+<a href="#Makefile-target">Makefile target</a>.
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example"># rsync -aL rsync://fate-suite.libav.org/fate-suite/ fate-suite
+</pre></td></tr></table>
+
+<table><tr><td>&nbsp;</td><td><pre class="example"># make fate-rsync SAMPLES=fate-suite
+</pre></td></tr></table>
+
+
+<a name="SEC4"></a>
+<h1 class="chapter"> <a href="#TOC4">3. Manual Run</a> </h1>
+<p>FATE regression test can be run through <code>make</code>.
+Specific Makefile targets and Makefile variables are available:
+</p>
+<p><a name="Makefile-target"></a>
+</p><a name="SEC5"></a>
+<h2 class="section"> <a href="#TOC5">3.1 FATE Makefile targets</a> </h2>
+
+<dl compact="compact">
+<dt> &lsquo;<samp>fate-list</samp>&rsquo;</dt>
+<dd><p>List all fate/regression test targets.
+</p>
+</dd>
+<dt> &lsquo;<samp>fate-rsync</samp>&rsquo;</dt>
+<dd><p>Shortcut to download the fate test samples to the specified testsuite location.
+</p>
+</dd>
+<dt> &lsquo;<samp>fate</samp>&rsquo;</dt>
+<dd><p>Run the FATE test suite (requires the fate-suite dataset).
+</p></dd>
+</dl>
+
+<a name="SEC6"></a>
+<h2 class="section"> <a href="#TOC6">3.2 FATE Makefile variables</a> </h2>
+<dl compact="compact">
+<dt> &lsquo;<samp>V</samp>&rsquo;</dt>
+<dd><p>Verbosity level, can be set to 0, 1 or 2.
+</p>
+<dl compact="compact">
+<dt> &lsquo;<samp>0</samp>&rsquo;</dt>
+<dd><p>show just the test arguments
+</p>
+</dd>
+<dt> &lsquo;<samp>1</samp>&rsquo;</dt>
+<dd><p>show just the command used in the test
+</p>
+</dd>
+<dt> &lsquo;<samp>2</samp>&rsquo;</dt>
+<dd><p>show everything
+</p></dd>
+</dl>
+
+</dd>
+<dt> &lsquo;<samp>SAMPLES</samp>&rsquo;</dt>
+<dd><p>Specify or override the path to the FATE samples at make time, it has a
+meaning only while running the regression tests.
+</p>
+</dd>
+<dt> &lsquo;<samp>THREADS</samp>&rsquo;</dt>
+<dd><p>Specify how many threads to use while running regression tests, it is
+quite useful to detect thread-related regressions.
+</p>
+</dd>
+<dt> &lsquo;<samp>THREAD_TYPE</samp>&rsquo;</dt>
+<dd><p>Specify which threading strategy test, either <var>slice</var> or <var>frame</var>,
+by default <var>slice+frame</var>
+</p>
+</dd>
+<dt> &lsquo;<samp>CPUFLAGS</samp>&rsquo;</dt>
+<dd><p>Specify a mask to be applied to autodetected CPU flags.
+</p>
+</dd>
+<dt> &lsquo;<samp>TARGET_EXEC</samp>&rsquo;</dt>
+<dd><p>Specify or override the wrapper used to run the tests.
+</p>
+</dd>
+<dt> &lsquo;<samp>GEN</samp>&rsquo;</dt>
+<dd><p>Set to <var>1</var> to generate the missing or mismatched references.
+</p></dd>
+</dl>
+
+<table><tr><td>&nbsp;</td><td><pre class="example">    make V=1 SAMPLES=/var/fate/samples THREADS=2 CPUFLAGS=mmx fate
+</pre></td></tr></table>
+
+<a name="SEC7"></a>
+<h1 class="chapter"> <a href="#TOC7">4. Automated Tests</a> </h1>
+<p>In order to automatically testing specific configurations, e.g. multiple
+compilers, <code>tests/fate.sh</code> is provided.
+</p>
+<p>This shell script builds Libav, runs the regression tests and prepares
+a report that can be sent to <a href="http://fate.libav.org/">http://fate.libav.org/</a> or directly
+examined locally.
+</p>
+<a name="SEC8"></a>
+<h2 class="section"> <a href="#TOC8">4.1 Testing Profiles</a> </h2>
+<p>The configuration file passed to <code>fate.sh</code> is shell scripts as well.
+</p>
+<p>It must provide at least a <var>slot</var> identifier, the <var>repo</var> from
+which fetch the sources, the <var>samples</var> directory, a <var>workdir</var> with
+enough space to build and run all the tests.
+Optional submit command <var>fate_recv</var> and a <var>comment</var> to describe
+the testing profile are available.
+</p>
+<p>Additional optional parameter to tune the Libav building and reporting process
+can be passed.
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">slot=                                   # some unique identifier
+repo=git://git.libav.org/libav.git      # the source repository
+samples=/path/to/fate/samples
+workdir=                                # directory in which to do all the work
+fate_recv=&quot;ssh -T fate@fate.libav.org&quot;  # command to submit report
+comment=                                # optional description
+build_only=     # set to &quot;yes&quot; for a compile-only instance that skips tests
+
+# the following are optional and map to configure options
+arch=
+cpu=
+cross_prefix=
+as=
+cc=
+ld=
+target_os=
+sysroot=
+target_exec=
+target_path=
+target_samples=
+extra_cflags=
+extra_ldflags=
+extra_libs=
+extra_conf=     # extra configure options not covered above
+
+#make=          # name of GNU make if not 'make'
+makeopts=       # extra options passed to 'make'
+#tar=           # command to create a tar archive from its arguments on
+                # stdout, defaults to 'tar c'
+</pre></td></tr></table>
+
+<a name="SEC9"></a>
+<h2 class="section"> <a href="#TOC9">4.2 Special Instances</a> </h2>
+<p>The <var>TARGET_EXEC</var> option provides a way to run FATE wrapped in
+<code>valgrind</code>, <code>qemu-user</code> or <code>wine</code> or on remote targets
+through <code>ssh</code>.
+</p>
+<a name="SEC10"></a>
+<h2 class="section"> <a href="#TOC10">4.3 Submitting Reports</a> </h2>
+<p>In order to send reports you need to create an <code>ssh</code> key and send it
+to <a href="mailto:root@libav.org">root@libav.org</a>.
+The current server fingerprint is <var>a4:99:d7:d3:1c:92:0d:56:d6:d5:61:be:01:ae:7d:e6</var>
+</p><footer class="footer pagination-right">
+<span class="label label-info">This document was generated on <i>May, 10 2014</i> using <a href="http://www.nongnu.org/texi2html/"><i>texi2html 1.78</i></a>.</span></footer></div>

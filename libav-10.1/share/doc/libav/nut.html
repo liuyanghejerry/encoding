@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+<!-- Created on May, 10 2014 by texi2html 1.78 -->
+<!--
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people.
+Send bugs and suggestions to <texi2html-bug@nongnu.org>
+
+-->
+<head>
+<title>Libav documentation : NUT: </title>
+
+<meta name="description" content="NUT: ">
+<meta name="keywords" content="Libav documentation : NUT: ">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.78">
+
+<style type="text/css">
+<!--
+.container {
+  margin-right: auto;
+  margin-left: auto;
+  width: 1070px;
+}
+body {
+  font-size: 14px;
+  line-height: 20px;
+  color: #333333;
+  background-color: #ffffff;
+}
+a {
+  color: #0088cc;
+  text-decoration: none;
+}
+a:hover {
+  color: #005580;
+  text-decoration: underline;
+}
+p {
+  margin: 0 0 10px;
+}
+h2,
+h3,
+h4 {
+  margin: 10px 0;
+  font-family: inherit;
+  font-weight: bold;
+  line-height: 1;
+  border-color: #D6E9C6;
+  color: #468847;
+  border-style: solid;
+  border-width: 0 0 1px;
+  padding-left: 0.5em;
+}
+
+h1 a,
+h2 a,
+h3 a,
+h4 a {
+  color: inherit;
+}
+h1 {
+  font-size: 30px;
+  line-height: 40px;
+}
+h2 {
+  font-size: 20px;
+  line-height: 40px;
+}
+h3 {
+  font-size: 18px;
+  line-height: 40px;
+}
+code,
+pre {
+  padding: 0 3px 2px;
+  font-family: monospace;
+  font-size: 12px;
+  color: #333333;
+  border-radius: 3px;
+}
+pre {
+  display: block;
+  padding: 9.5px;
+  margin: 0 0 10px;
+  font-size: 13px;
+  line-height: 20px;
+  word-break: break-all;
+  word-wrap: break-word;
+  white-space: pre;
+  white-space: pre-wrap;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+code {
+  padding: 2px 4px;
+  color: #d14;
+  background-color: #f7f7f9;
+  border: 1px solid #e1e1e8;
+}
+pre code {
+  padding: 0;
+  color: inherit;
+  background-color: transparent;
+  border: 0;
+}
+.alert {
+  padding: 8px 35px 8px 14px;
+  margin-bottom: 20px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  background-color: #fcf8e3;
+  border: 1px solid #fbeed5;
+  border-radius: 4px;
+  color: #c09853;
+}
+
+.alert-danger,
+.alert-error {
+  background-color: #f2dede;
+  border-color: #eed3d7;
+  color: #b94a48;
+}
+.alert-info {
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  color: #3a87ad;
+}
+
+ul.toc {
+  list-style-type: none;
+}
+-->
+</style>
+
+<link rel="icon" href="favicon.png" type="image/png" />
+</head>
+<body>
+<div class="container">
+
+<h1 class="settitle">NUT
+</h1>
+
+<a name="SEC_Contents"></a>
+<h1>Table of Contents</h1>
+<div class="contents">
+
+<ul class="toc">
+  <li><a name="TOC1" href="#SEC1">1. Description</a></li>
+  <li><a name="TOC2" href="#SEC2">2. Container-specific codec tags</a>
+  <ul class="toc">
+    <li><a name="TOC3" href="#SEC3">2.1 Generic raw YUVA formats</a></li>
+    <li><a name="TOC4" href="#SEC4">2.2 Raw Audio</a></li>
+    <li><a name="TOC5" href="#SEC5">2.3 Subtitles</a></li>
+    <li><a name="TOC6" href="#SEC6">2.4 Raw Data</a></li>
+    <li><a name="TOC7" href="#SEC7">2.5 Codecs</a></li>
+  </ul>
+</li>
+</ul>
+</div>
+
+
+<a name="SEC1"></a>
+<h1 class="chapter"> <a href="#TOC1">1. Description</a> </h1>
+<p>NUT is a low overhead generic container format. It stores audio, video,
+subtitle and user-defined streams in a simple, yet efficient, way.
+</p>
+<p>It was created by a group of FFmpeg and MPlayer developers in 2003
+and was finalized in 2008.
+</p>
+<a name="SEC2"></a>
+<h1 class="chapter"> <a href="#TOC2">2. Container-specific codec tags</a> </h1>
+
+<a name="SEC3"></a>
+<h2 class="section"> <a href="#TOC3">2.1 Generic raw YUVA formats</a> </h2>
+
+<p>Since many exotic planar YUVA pixel formats are not considered by
+the AVI/QuickTime FourCC lists, the following scheme is adopted for
+representing them.
+</p>
+<p>The first two bytes can contain the values:
+Y1 = only Y
+Y2 = Y+A
+Y3 = YUV
+Y4 = YUVA
+</p>
+<p>The third byte represents the width and height chroma subsampling
+values for the UV planes, that is the amount to shift the luma
+width/height right to find the chroma width/height.
+</p>
+<p>The fourth byte is the number of bits used (8, 16, ...).
+</p>
+<p>If the order of bytes is inverted, that means that each component has
+to be read big-endian.
+</p>
+<a name="SEC4"></a>
+<h2 class="section"> <a href="#TOC4">2.2 Raw Audio</a> </h2>
+
+<table>
+<tr><td><p> ALAW  </p></td><td><p> A-LAW
+</p></td></tr>
+<tr><td><p> ULAW  </p></td><td><p> MU-LAW
+</p></td></tr>
+<tr><td><p> P&lt;type&gt;&lt;interleaving&gt;&lt;bits&gt; </p></td><td><p> little-endian PCM
+</p></td></tr>
+<tr><td><p> &lt;bits&gt;&lt;interleaving&gt;&lt;type&gt;P </p></td><td><p> big-endian PCM
+</p></td></tr>
+</table>
+
+<p>&lt;type&gt; is S for signed integer, U for unsigned integer, F for IEEE float
+&lt;interleaving&gt; is D for default, P is for planar.
+&lt;bits&gt; is 8/16/24/32
+</p>
+<table><tr><td>&nbsp;</td><td><pre class="example">PFD[32]   would for example be signed 32 bit little-endian IEEE float
+</pre></td></tr></table>
+
+<a name="SEC5"></a>
+<h2 class="section"> <a href="#TOC5">2.3 Subtitles</a> </h2>
+
+<table>
+<tr><td><p> UTF8   </p></td><td><p> Raw UTF-8
+</p></td></tr>
+<tr><td><p> SSA[0] </p></td><td><p> SubStation Alpha
+</p></td></tr>
+<tr><td><p> DVDS   </p></td><td><p> DVD subtitles
+</p></td></tr>
+<tr><td><p> DVBS   </p></td><td><p> DVB subtitles
+</p></td></tr>
+</table>
+
+<a name="SEC6"></a>
+<h2 class="section"> <a href="#TOC6">2.4 Raw Data</a> </h2>
+
+<table>
+<tr><td><p> UTF8   </p></td><td><p> Raw UTF-8
+</p></td></tr>
+</table>
+
+<a name="SEC7"></a>
+<h2 class="section"> <a href="#TOC7">2.5 Codecs</a> </h2>
+
+<table>
+<tr><td><p> 3IV1 </p></td><td><p> non-compliant MPEG-4 generated by old 3ivx
+</p></td></tr>
+<tr><td><p> ASV1 </p></td><td><p> Asus Video
+</p></td></tr>
+<tr><td><p> ASV2 </p></td><td><p> Asus Video 2
+</p></td></tr>
+<tr><td><p> CVID </p></td><td><p> Cinepak
+</p></td></tr>
+<tr><td><p> CYUV </p></td><td><p> Creative YUV
+</p></td></tr>
+<tr><td><p> DIVX </p></td><td><p> non-compliant MPEG-4 generated by old DivX
+</p></td></tr>
+<tr><td><p> DUCK </p></td><td><p> Truemotion 1
+</p></td></tr>
+<tr><td><p> FFV1 </p></td><td><p> FFmpeg video 1
+</p></td></tr>
+<tr><td><p> FFVH </p></td><td><p> FFmpeg Huffyuv
+</p></td></tr>
+<tr><td><p> H261 </p></td><td><p> ITU H.261
+</p></td></tr>
+<tr><td><p> H262 </p></td><td><p> ITU H.262
+</p></td></tr>
+<tr><td><p> H263 </p></td><td><p> ITU H.263
+</p></td></tr>
+<tr><td><p> H264 </p></td><td><p> ITU H.264
+</p></td></tr>
+<tr><td><p> HFYU </p></td><td><p> Huffyuv
+</p></td></tr>
+<tr><td><p> I263 </p></td><td><p> Intel H.263
+</p></td></tr>
+<tr><td><p> IV31 </p></td><td><p> Indeo 3.1
+</p></td></tr>
+<tr><td><p> IV32 </p></td><td><p> Indeo 3.2
+</p></td></tr>
+<tr><td><p> IV50 </p></td><td><p> Indeo 5.0
+</p></td></tr>
+<tr><td><p> LJPG </p></td><td><p> ITU JPEG (lossless)
+</p></td></tr>
+<tr><td><p> MJLS </p></td><td><p> ITU JPEG-LS
+</p></td></tr>
+<tr><td><p> MJPG </p></td><td><p> ITU JPEG
+</p></td></tr>
+<tr><td><p> MPG4 </p></td><td><p> MS MPEG-4v1 (not ISO MPEG-4)
+</p></td></tr>
+<tr><td><p> MP42 </p></td><td><p> MS MPEG-4v2
+</p></td></tr>
+<tr><td><p> MP43 </p></td><td><p> MS MPEG-4v3
+</p></td></tr>
+<tr><td><p> MP4V </p></td><td><p> ISO MPEG-4 Part 2 Video (from old encoders)
+</p></td></tr>
+<tr><td><p> mpg1 </p></td><td><p> ISO MPEG-1 Video
+</p></td></tr>
+<tr><td><p> mpg2 </p></td><td><p> ISO MPEG-2 Video
+</p></td></tr>
+<tr><td><p> MRLE </p></td><td><p> MS RLE
+</p></td></tr>
+<tr><td><p> MSVC </p></td><td><p> MS Video 1
+</p></td></tr>
+<tr><td><p> RT21 </p></td><td><p> Indeo 2.1
+</p></td></tr>
+<tr><td><p> RV10 </p></td><td><p> RealVideo 1.0
+</p></td></tr>
+<tr><td><p> RV20 </p></td><td><p> RealVideo 2.0
+</p></td></tr>
+<tr><td><p> RV30 </p></td><td><p> RealVideo 3.0
+</p></td></tr>
+<tr><td><p> RV40 </p></td><td><p> RealVideo 4.0
+</p></td></tr>
+<tr><td><p> SVQ1 </p></td><td><p> Sorenson Video 1
+</p></td></tr>
+<tr><td><p> SVQ3 </p></td><td><p> Sorenson Video 3
+</p></td></tr>
+<tr><td><p> theo </p></td><td><p> Xiph Theora
+</p></td></tr>
+<tr><td><p> TM20 </p></td><td><p> Truemotion 2.0
+</p></td></tr>
+<tr><td><p> UMP4 </p></td><td><p> non-compliant MPEG-4 generated by UB Video MPEG-4
+</p></td></tr>
+<tr><td><p> VCR1 </p></td><td><p> ATI VCR1
+</p></td></tr>
+<tr><td><p> VP30 </p></td><td><p> VP 3.0
+</p></td></tr>
+<tr><td><p> VP31 </p></td><td><p> VP 3.1
+</p></td></tr>
+<tr><td><p> VP50 </p></td><td><p> VP 5.0
+</p></td></tr>
+<tr><td><p> VP60 </p></td><td><p> VP 6.0
+</p></td></tr>
+<tr><td><p> VP61 </p></td><td><p> VP 6.1
+</p></td></tr>
+<tr><td><p> VP62 </p></td><td><p> VP 6.2
+</p></td></tr>
+<tr><td><p> VP70 </p></td><td><p> VP 7.0
+</p></td></tr>
+<tr><td><p> WMV1 </p></td><td><p> MS WMV7
+</p></td></tr>
+<tr><td><p> WMV2 </p></td><td><p> MS WMV8
+</p></td></tr>
+<tr><td><p> WMV3 </p></td><td><p> MS WMV9
+</p></td></tr>
+<tr><td><p> WV1F </p></td><td><p> non-compliant MPEG-4 generated by ?
+</p></td></tr>
+<tr><td><p> WVC1 </p></td><td><p> VC-1
+</p></td></tr>
+<tr><td><p> XVID </p></td><td><p> non-compliant MPEG-4 generated by old Xvid
+</p></td></tr>
+<tr><td><p> XVIX </p></td><td><p> non-compliant MPEG-4 generated by old Xvid with interlacing bug
+</p></td></tr>
+</table>
+
+<footer class="footer pagination-right">
+<span class="label label-info">This document was generated on <i>May, 10 2014</i> using <a href="http://www.nongnu.org/texi2html/"><i>texi2html 1.78</i></a>.</span></footer></div>
