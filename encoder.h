@@ -1,8 +1,8 @@
 #ifndef ENCODER_H
 #define ENCODER_H
 
-#include <QObject>
 #include <QSize>
+#include <QString>
 
 class AVCodec;
 class AVCodecContext;
@@ -11,17 +11,15 @@ class AVDictionary;
 class AVStream;
 class AVFormatContext;
 class ImageConvert;
+class QImage;
 
-class Encoder : public QObject
+class Encoder
 {
-    Q_OBJECT
 public:
-    explicit Encoder(const QSize &s, const QString &n, QObject *parent = 0);
+    explicit Encoder(const QSize &s,
+                     const QString &n);
     ~Encoder();
 
-signals:
-
-public slots:
     void onImage(const QImage &img);
     void finish();
 protected:

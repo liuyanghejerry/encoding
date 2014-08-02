@@ -63,8 +63,7 @@ private:
     SwsContext * ctx;
 };
 
-Encoder::Encoder(const QSize &s, const QString &n, QObject *parent) :
-    QObject(parent),
+Encoder::Encoder(const QSize &s, const QString &n) :
     base_size(s),
     name(n),
     converter(new ImageConvert(s))
