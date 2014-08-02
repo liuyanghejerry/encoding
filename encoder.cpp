@@ -24,11 +24,11 @@ extern "C" {
 #include "libavutil/mathematics.h"
 #include "libswscale/swscale.h"
 #include "libavformat/avformat.h"
+#include "libavutil/dict.h"
 }
 
 
 #include <QImage>
-#include <QPainter>
 #include <QDebug>
 
 static const int fps = 30;
@@ -108,6 +108,7 @@ Encoder::Encoder(const QSize &s, const QString &n, QObject *parent) :
     qDebug()<<"context init";
 
     d = NULL;
+    av_dict_set( &d, "preset", "slow", 0 );
 
     ret = avcodec_open2(context, codec, &d);
     if ( ret < 0) {
@@ -162,6 +163,7 @@ Encoder::~Encoder()
     av_freep(&frame->data[0]);
     av_frame_free(&frame);
     avformat_free_context(format);
+    av_dict_free(&d);
     avio_close(format->pb);
     delete converter;
 }
