@@ -5,26 +5,13 @@
 #endif
 
 extern "C" {
-#ifdef __cplusplus
-
-#define __STDC_CONSTANT_MACROS
-
-#ifdef _STDINT_H
-
-#undef _STDINT_H
-
-#endif
-
-# include <stdint.h>
-
-#endif
-
 #include "libavcodec/avcodec.h"
 #include "libavutil/imgutils.h"
 #include "libavutil/mathematics.h"
 #include "libswscale/swscale.h"
 #include "libavformat/avformat.h"
 #include "libavutil/dict.h"
+#include "libavutil/opt.h"
 }
 
 
@@ -63,7 +50,7 @@ private:
     SwsContext * ctx;
 };
 
-Encoder::Encoder(const QSize &s, const QString &n) :
+Encoder::Encoder(const QSize &s, const QString &n, const QString &config) :
     base_size(s),
     name(n),
     converter(new ImageConvert(s))
@@ -95,19 +82,26 @@ Encoder::Encoder(const QSize &s, const QString &n) :
     }
     qDebug()<<"context allocted";
 
-    context->bit_rate = 400000;
+    context->bit_rate = 600000;
     // resolution must be a multiple of two
     context->width = base_size.width();
     context->height = base_size.height();
     // frames per second
     context->time_base= (AVRational){1,fps};
-    context->gop_size = 12; // emit one intra frame every twelve frames at most
-//    context->max_b_frames = 1; // FIXME: will flash if too large
+    context->gop_size = 8; // emit one intra frame every twelve frames at most
+    context->max_b_frames = 1; // FIXME: will flash if too large
     context->pix_fmt = AV_PIX_FMT_YUV420P;
+//    context->b_frame_strategy = 1;
+//    context->trellis = 1;
+    context->level = 13;
+    context->qmin = 10;
+    context->qmax = 51;
+    context->refs = 2;
     qDebug()<<"context init";
 
     d = NULL;
-    av_dict_set( &d, "preset", "slow", 0 );
+//    av_dict_set( &d, "preset", "slow", 0 );
+    qDebug()<<av_set_options_string(context, config.toStdString().c_str(), "=", "\n ");
 
     ret = avcodec_open2(context, codec, &d);
     if ( ret < 0) {
@@ -202,7 +196,7 @@ void Encoder::onImage(const QImage &img)
 
             context->coded_frame->pts = pts;  // Set the time stamp
 
-            if (context->coded_frame->pts != (0x8000000000000000LL))
+            if (context->coded_frame->pts != AV_NOPTS_VALUE)
             {
                 pts = av_rescale_q(context->coded_frame->pts,
                                            context->time_base,
@@ -235,7 +229,7 @@ void Encoder::finish()
         ret = avcodec_encode_video2(context, &pkt, NULL, &got_output);
         if (ret < 0) {
             qDebug()<<"Error encoding frame";
-            return;
+            break;
         }
         if (got_output) {
             printf("Write frame %3d (size=%5d)\n", frame_count, pkt.size);

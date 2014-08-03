@@ -9,7 +9,9 @@ QT       += core
 TARGET = encoding
 CONFIG   += console
 CONFIG   -= app_bundle
-CONFIG   += c++11
+#CONFIG   += c++11
+
+QMAKE_CXXFLAGS += -D__STDC_CONSTANT_MACROS
 
 TEMPLATE = app
 

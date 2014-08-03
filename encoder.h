@@ -17,7 +17,8 @@ class Encoder
 {
 public:
     explicit Encoder(const QSize &s,
-                     const QString &n);
+                     const QString &n,
+                     const QString &config);
     ~Encoder();
 
     void onImage(const QImage &img);
